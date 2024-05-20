@@ -1,12 +1,17 @@
 {{ define "authn_otp_send" }}
 
-  <h2 id="log-in-header">Log in with verification code</h2>
+  <div class="log-in-header-container">
+      <h2 id="log-in-header">Log in with verification code</h2>
+      {{ if .Data.Is2FAStep }}
+          <img src="{{ .Config.Assets }}/static/images/2fa-icon.svg" alt="icon" class="icon-2fa"/>
+      {{ end }}
+  </div>
 
   <div class="form-field">
     <label for="text-field-username-input" class="label-with-link">
       <span id="username-label">Email | Mobile | Username</span>
     </label>
-    <input id="text-field-username-input" name="identifier" value="{{ .Data.Identifier }}">
+    <input id="text-field-username-input" name="identifier" value="{{ .Data.Identifier }}"{{ if .Data.Is2FAStep }} disabled{{ end }}>
   </div>
 
  {{ if and .Data.Is2FAStep .Data.ReduceMFAPromptsAvailable }}

@@ -19,7 +19,9 @@
     <div class="form-field">
         <label for="text-field-username-input" class="label-with-link">
             <span id="username-label">User Identifier</span>
-            <button id="not-you-button" type="submit" name="action" value="change_to_otp">Change</button>
+            {{ if not .Data.Is2FAStep }}
+                <button id="not-you-button" type="submit" name="action" value="change_to_otp">Change</button>
+            {{ end }}
         </label>
         <input id="text-field-username-input" name="identifier" value="{{ .Data.Identifier }}" disabled>
     </div>
@@ -48,9 +50,14 @@
         </div>
     {{ end }}
 
-    <button class="submit-button" type="submit" id="verify-button">
-        Continue
-    </button>
+    {{ if and .Data.Is2FAStep .Data.AuthnModeSwitch }}
+        <div class="buttons-container-full-width">
+            <button class="text-button" type="submit" name="action" value="change_to_otp">Back</button>
+            <button class="contained-button" type="submit" id="verify-button">Continue</button>
+          </div>
+    {{ else }}
+        <button class="submit-button" type="submit" id="verify-button">Continue</button>
+    {{ end }}
 
     <input type="hidden" name="authn_mode" value="otp_send_view" id="authnView-input">
 
