@@ -1,0 +1,99 @@
+{{ define "authn_totp" }}
+
+  <div class="log-in-header-container">
+      <h2 id="log-in-header">Log in with authenticator</h2>
+      {{ if .Data.Is2FAStep }}
+          <img src="{{ .Config.Assets }}/static/images/2fa-icon.svg" alt="icon" class="icon-2fa"/>
+      {{ end }}
+  </div>
+
+  <div class="form-field">
+    <label for="text-field-username-input" class="label-with-link">
+      <span id="username-label">Email | Mobile | Username</span>
+    </label>
+    <input id="text-field-username-input" name="identifier" value="{{ .Data.Identifier }}"{{ if .Data.Is2FAStep }} disabled{{ end }}>
+  </div>
+
+   <div class="form-field totp-container" id="totp-container">
+       <label for="text-field-totp-input">
+           <span id="totp-label">Enter code from your authenticator app</span>
+           <a href="{{ .Data.ResetTOTPPath }}" id="forgot-totp" class="input-above-link" tabindex="1">Lost authenticator?</a>
+       </label>
+
+       <div id="totp-input-container" class="form-field otp-input-container">
+            <input type="hidden" name="totp" value="" id="totp-input">
+       </div>
+   </div>
+
+      {{ if and .Data.Is2FAStep .Data.ReduceMFAPromptsAvailable }}
+          <div class="pool-login-reduce-mfa-prompts-switch-container">
+                <div id="reduce-mfa-prompts">
+                    <label class="switch-container" tabindex="0">
+                      <div class="switch">
+                        <input type="checkbox" name="reduce_mfa_prompts" tabindex="-1" {{ if .Data.ReduceMFAPromptsSelected }} checked {{ end }}>
+                        <span class="slider"></span>
+                      </div>
+                      <span>Don't ask again on this device</span>
+                    </label>
+                </div>
+          </div>
+      {{ end }}
+
+      <button class="submit-button" type="submit" id="totp-sign-in-button">
+          Continue
+      </button>
+
+      {{ if .Data.AuthnModeSwitch }}
+          <div id="authn-mode-switch-container">
+
+              <div class="spacer-container">
+                  <div>or log in with</div>
+              </div>
+
+              <div class="form-field">
+
+              {{ if .Data.AuthenticationMechanismsAvailability.password }}
+            <button class="href-card" type="submit" name="action" value="change_to_password" id="login-option-password">
+                          <div>
+                <span class="href-card-avatar href-card-avatar-with-img">
+                  <img src="{{ .Config.Assets }}/static/images/password-icon.svg" alt="icon" />
+                </span>
+                  <span>Password</span>
+                          </div>
+                          <i class="material-icons">navigate_next</i>
+                      </button>
+                  {{ end }}
+
+                  {{ if .Data.AuthenticationMechanismsAvailability.otp }}
+            <button class="href-card" type="submit" name="action" value="change_to_otp" id="login-option-code" style="display: flex">
+                          <div>
+                <span class="href-card-avatar href-card-avatar-with-img">
+                  <img src="{{ .Config.Assets }}/static/images/otp-icon.svg" alt="icon" />
+                </span>
+                              <span>Verification Code</span>
+                          </div>
+                          <i class="material-icons">navigate_next</i>
+                      </button>
+                  {{ end }}
+
+                  {{ if .Data.AuthenticationMechanismsAvailability.webauthn }}
+            <button class="href-card" type="submit" name="action" value="change_to_web_authn" id="login-option-web-authn">
+                          <div>
+                <span class="href-card-avatar href-card-avatar-with-img">
+                  <img src="{{ .Config.Assets }}/static/images/webauthn-icon.svg" alt="icon" />
+                </span>
+                              <span>Passkey</span>
+                          </div>
+                          <i class="material-icons">navigate_next</i>
+                      </button>
+                  {{ end }}
+
+              </div>
+          </div>
+      {{ end }}
+
+      <input type="checkbox" name="totpMode" id="totpMode" checked class="non-visible">
+      <input type="hidden" name="authn_mode" value="totp_view" id="authnView-input">
+
+      <div class="non-visible" id="version" data-version="identity-pool-login"></div>
+{{ end }}
