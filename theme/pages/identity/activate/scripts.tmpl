@@ -4,6 +4,7 @@
 
   var view = "{{ .Data.Mode }}";
   var otpLength = {{ .Data.OtpLength }};
+  var totpLength = {{ .Data.TotpLength }};
 
   document.addEventListener("DOMContentLoaded", function() {
     if (view === "web_authn") {
@@ -12,6 +13,7 @@
       initPassword();
     }
     initOtpInput('otp-input-container', otpLength );
+    initTotpInput('totp-input-container', totpLength );
   });
 
   function initPassword() {

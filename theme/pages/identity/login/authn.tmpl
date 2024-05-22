@@ -22,6 +22,8 @@
       {{ template "authn_set_new_password" . }}
     {{ else if eq .Data.AuthnView "web_authn_view" }}
       {{ template "authn_web_authn" . }}
+    {{ else if eq .Data.AuthnView "totp_view" }}
+      {{ template "authn_totp" . }}
     {{ end }}
 
     <div class="pool-login-remember-idp-switch-container">

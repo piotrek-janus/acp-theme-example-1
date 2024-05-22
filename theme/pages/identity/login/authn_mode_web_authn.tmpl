@@ -67,6 +67,18 @@
                     </button>
                 {{ end }}
 
+                {{ if .Data.AuthenticationMechanismsAvailability.totp }}
+          <button class="href-card" type="submit" name="action" value="change_to_totp" id="login-option-totp">
+                        <div>
+              <span class="href-card-avatar href-card-avatar-with-img">
+                <img src="{{ .Config.Assets }}/static/images/webauthn-icon.svg" alt="icon" />
+              </span>
+                            <span>Authenticator Code</span>
+                        </div>
+                        <i class="material-icons">navigate_next</i>
+                    </button>
+                {{ end }}
+
             </div>
         </div>
     {{ end }}

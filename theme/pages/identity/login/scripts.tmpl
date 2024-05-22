@@ -3,6 +3,7 @@
 <script nonce="{{.Config.Nonce}}">
 
   var otpLength = {{ .Data.OtpLength }};
+  var totpLength = {{ .Data.TotpLength }};
   var identifier = "{{ .Data.Identifier }}";
 
   document.addEventListener("DOMContentLoaded", onPageLoad);
@@ -13,6 +14,7 @@
 
     setUsernameInputEnableOnSubmit();
     initOtpInput('otp-input-container', otpLength);
+    initTotpInput('totp-input-container', totpLength );
 
     if (preview !== 'true') {
       applyFocus();
@@ -45,7 +47,7 @@
   }
 
   function setButtonEnablementOnInput() {
-    var inputNodes = ['text-field-username-input', 'text-field-password-input', 'otp-input'];
+    var inputNodes = ['text-field-username-input', 'text-field-password-input', 'otp-input', 'totp-input'];
     inputNodes.map(elementId => document.getElementById(elementId))
       .filter(inputNode => !!inputNode)
       .forEach(existingInputNode => {
@@ -57,16 +59,18 @@
     var usernameInput = document.getElementById('text-field-username-input');
     var passwordInput = document.getElementById('text-field-password-input');
     var otpInput = document.getElementById('otp-input');
+    var totpInput = document.getElementById('totp-input');
     var signInButton = document.getElementById('sign-in-button');
     var webAuthnSignInButton = document.getElementById('web-authn-sign-in-button');
     var sendCodeButton = document.getElementById('send-code-button');
     var verifyButton = document.getElementById('verify-button');
-    var verifyButton = document.getElementById('verify-button');
+    var totpVerifyButton = document.getElementById('totp-sign-in-button');
 
     if(usernameInput && passwordInput && signInButton) signInButton.disabled = !usernameInput.value || !passwordInput.value;
     if(usernameInput && webAuthnSignInButton) webAuthnSignInButton.disabled = !usernameInput.value;
     if(usernameInput && sendCodeButton) sendCodeButton.disabled = !usernameInput.value;
     if(usernameInput && otpInput && verifyButton) verifyButton.disabled = !usernameInput.value || !otpInput.value || otpInput.value.length < otpLength;
+    if(usernameInput && totpInput && totpVerifyButton) totpVerifyButton.disabled = !usernameInput.value || !totpInput.value || totpInput.value.length < totpLength;
   }
 
   function initWebAuthn() {
@@ -79,7 +83,7 @@
         if (e.submitter.id !== "web-authn-sign-in-button") {
           return;
         }
-        
+
         e.preventDefault();
         webAuthnLogin();
       });
@@ -96,7 +100,7 @@
     var webAuthnError = document.querySelector("#hidden-text-field-webauthn-error");
     var server_id = (new URL(document.location)).searchParams.get("server_id");
     var identifier = document.querySelector("#text-field-username-input").value;
-    
+
     webAuthnError.value = '';
 
     fetch(window.location.pathname + "/webauthn/options?" + new URLSearchParams({ server_id: server_id }), {
@@ -124,7 +128,7 @@
       let rawId = assertion.rawId;
       let sig = assertion.response.signature;
       let userHandle = assertion.response.userHandle;
-      
+
       return fetch(window.location.pathname + "/webauthn/finish?" + new URLSearchParams({ server_id: server_id }), {
         method: "POST",
         body: JSON.stringify({
@@ -139,7 +143,7 @@
           },
         }),
       });
-      
+
     })
     .catch((error) => {
       webAuthnError.value = error;

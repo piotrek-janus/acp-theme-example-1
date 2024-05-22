@@ -3,6 +3,7 @@
   <script nonce="{{.Config.Nonce}}">
 
     var otpLength = {{ .Data.OtpLength }};
+    var totpLength = {{ .Data.TotpLength }};
 
     window.addEventListener("pageshow", () => {
       document.querySelector("#reset-form").reset();
@@ -12,6 +13,7 @@
 
     function onPageLoad() {
       initOtpInput('otp-input-container', otpLength );
+      initTotpInput('totp-input-container', totpLength );
       initWebAuthn();
       disableButtonsOnEmptyInputs();
       setButtonEnablementOnInput();

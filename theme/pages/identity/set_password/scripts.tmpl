@@ -3,11 +3,13 @@
 <script nonce="{{.Config.Nonce}}">
 
   var otpLength = {{ .Data.OtpLength }};
+  var totpLength = {{ .Data.TotpLength }};
 
   document.addEventListener("DOMContentLoaded", onPageLoad);
 
   function onPageLoad() {
     initOtpInput('otp-input-container', otpLength, true);
+    initTotpInput('totp-input-container', totpLength );
     disableButtonsOnEmptyInputs();
     setButtonEnablementOnInput();
   }
