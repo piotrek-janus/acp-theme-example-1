@@ -21,6 +21,8 @@
       {{ template "register_with_password" . }}
       {{ else if eq .Data.TargetViewV2 "passkey" }}
       {{ template "register_with_passkey" . }}
+      {{ else if eq .Data.TargetViewV2 "totp" }}
+      {{ template "register_with_totp" . }}
       {{ end }}
     </div>
   </div>

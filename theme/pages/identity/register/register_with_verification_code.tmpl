@@ -29,7 +29,7 @@
   </button>
 </div>
 
-{{ if (or .Data.PasswordAuthEnabled .Data.PasskeyAuthEnabled) }}
+{{ if (or .Data.PasswordAuthEnabled .Data.PasskeyAuthEnabled .Data.TOTPAuthEnabled) }}
 <div class="spacer-container extra-top-margin-small">
   <div>or register with</div>
 </div>
@@ -50,11 +50,22 @@
 <button class="href-card" type="submit" name="action" value="change_to_passkey_entry" form="sign-up-form">
   <div>
       <span class="href-card-avatar href-card-avatar-with-img small-icon">
-        <img src="{{ .Config.Assets }}/static/images/fingerprint.svg" alt="icon" />
+        <img src="{{ .Config.Assets }}/static/images/webauthn-icon.svg" alt="icon" />
       </span>
     <span>Passkey</span>
   </div>
 </button>
+{{ end }}
+
+{{ if .Data.TOTPAuthEnabled }}
+    <button class="href-card" type="submit" name="action" value="change_to_totp_entry" form="sign-up-form">
+        <div>
+      <span class="href-card-avatar href-card-avatar-with-img small-icon">
+        <img src="{{ .Config.Assets }}/static/images/smartphone-icon.svg" alt="icon" />
+      </span>
+            <span>Authenticator App</span>
+        </div>
+    </button>
 {{ end }}
 
 {{ end }}

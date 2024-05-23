@@ -55,8 +55,8 @@
               {{ if .Data.AuthenticationMechanismsAvailability.password }}
             <button class="href-card" type="submit" name="action" value="change_to_password" id="login-option-password">
                           <div>
-                <span class="href-card-avatar href-card-avatar-with-img">
-                  <img src="{{ .Config.Assets }}/static/images/password-icon.svg" alt="icon" />
+                <span class="href-card-avatar href-card-avatar-with-img small-icon">
+                  <img src="{{ .Config.Assets }}/static/images/password-icon-2.svg" alt="icon" />
                 </span>
                   <span>Password</span>
                           </div>
@@ -67,7 +67,7 @@
                   {{ if .Data.AuthenticationMechanismsAvailability.otp }}
             <button class="href-card" type="submit" name="action" value="change_to_otp" id="login-option-code" style="display: flex">
                           <div>
-                <span class="href-card-avatar href-card-avatar-with-img">
+                <span class="href-card-avatar href-card-avatar-with-img small-icon">
                   <img src="{{ .Config.Assets }}/static/images/otp-icon.svg" alt="icon" />
                 </span>
                               <span>Verification Code</span>
@@ -79,7 +79,7 @@
                   {{ if .Data.AuthenticationMechanismsAvailability.webauthn }}
             <button class="href-card" type="submit" name="action" value="change_to_web_authn" id="login-option-web-authn">
                           <div>
-                <span class="href-card-avatar href-card-avatar-with-img">
+                <span class="href-card-avatar href-card-avatar-with-img small-icon">
                   <img src="{{ .Config.Assets }}/static/images/webauthn-icon.svg" alt="icon" />
                 </span>
                               <span>Passkey</span>
