@@ -1,0 +1,65 @@
+{{ define "setup_with_totp" }}
+
+  <h2>Set up authenticator app</h2>
+
+  <div class="form-field">
+    <label for="text-field-username-input">
+      Email | Mobile
+    </label>
+    <input id="text-field-username-input" name="username" autocomplete="off" data-lpignore="true" value="{{ .Data.Identifier }}" disabled>
+  </div>
+
+  <div class="form-field totp-container" id="totp-container">
+      <label for="text-field-totp-input">
+          <span id="authenticator-label">Scan QR code with your authenticator app</span>
+      </label>
+
+      <div class="totp-qrcode-container">
+          <div id="totp-qrcode" data-qrdata="{{.Data.TOTPRegistrationURL}}"></div>
+      </div>
+
+      <label for="text-field-totp-input">
+          <span id="totp-label">Enter generated code for verification</span>
+      </label>
+
+      <div id="totp-input-container" class="form-field otp-input-container">
+          <input type="hidden" name="totp" value="" id="totp-input" form="sign-up-form">
+      </div>
+  </div>
+
+  <div class="buttons-container-full-width extra-top-margin">
+    <button class="contained-button" type="submit" id="sign-up-button">
+      <span>Continue</span>
+      <div class="non-visible">{{ template "loader" }}</div>
+    </button>
+  </div>
+
+  {{ if (or .Data.PasswordAuthEnabled .Data.PasskeyAuthEnabled) }}
+    <div class="spacer-container extra-top-margin-small">
+      <div>or register with</div>
+    </div>
+
+    {{ if .Data.PasswordAuthEnabled }}
+      <button class="href-card" type="submit" name="action" value="change_to_password">
+        <div>
+          <span class="href-card-avatar href-card-avatar-with-img small-icon">
+            <img src="{{ .Config.Assets }}/static/images/password-icon-2.svg" alt="icon" />
+          </span>
+          <span>Password</span>
+        </div>
+      </button>
+    {{ end }}
+
+    {{ if .Data.PasskeyAuthEnabled }}
+      <button class="href-card" type="submit" name="action" value="change_to_web_authn">
+        <div>
+          <span class="href-card-avatar href-card-avatar-with-img small-icon">
+            <img src="{{ .Config.Assets }}/static/images/webauthn-icon.svg" alt="icon" />
+          </span>
+          <span>Passkey</span>
+       </div>
+      </button>
+    {{ end }}
+  {{ end }}
+
+{{ end }}
