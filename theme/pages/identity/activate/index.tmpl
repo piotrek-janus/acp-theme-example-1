@@ -29,6 +29,8 @@
           {{ template "setup_with_web_authn" . }}
         {{ else if eq $mode "password" }}
           {{ template "setup_with_password" . }}
+        {{ else if eq $mode "totp" }}
+          {{ template "setup_with_totp" . }}
         {{ end }}
       </div>
     </div>
