@@ -1,0 +1,71 @@
+{{ template "base" . }}
+
+{{ define "title" }} Set up authenticator app {{ end }}
+
+{{ define "content" }}
+
+  {{ template "identity_set_totp_scripts" . }}
+
+  <div class="header-container">
+    {{ template "header" .Config }}
+  </div>
+
+  <div class="card">
+    <div class="color-bar"></div>
+
+    <h3 class="header">Reset authenticator app</h3>
+
+    <div class="content">
+
+      <form action="?login_id={{ .Data.SessionID }}&user_id={{ .Data.UserID}}&login_state={{ .Data.SessionState }}&identifier={{ .Data.Identifier }}&code={{ .Data.Code }}&server_id={{ .Data.ServerID }}" method="post">
+        {{ .Data.CsrfField }}
+
+        <h2>Set up authenticator app</h2>
+
+        <div class="form-field totp-container" id="totp-container">
+          <label for="text-field-totp-input">
+              <span id="authenticator-label">Scan QR code with your authenticator app</span>
+          </label>
+
+          <div class="totp-qrcode-container">
+              <div id="totp-qrcode" data-qrdata="{{.Data.TOTPRegistrationURL}}"></div>
+          </div>
+
+          <label for="text-field-totp-input">
+              <span id="totp-label">Enter generated code for verification</span>
+          </label>
+
+          <div id="totp-input-container" class="form-field otp-input-container">
+              <input type="hidden" name="totp" value="" id="totp-input">
+          </div>
+
+          {{ range .Data.FormError.Fields.totp }}
+            {{ template "error_message" . }}
+          {{ end }}
+        </div>
+
+        {{ if not .Data.Code }}
+          <div class="form-field extra-top-margin" id="otp-container">
+            <div id="otp-input-container" class="form-field otp-input-container">
+              <input type="hidden" name="otp" value="" id="otp-input">
+            </div>
+            <div class="footer-with-link">
+              Still didn't receive?
+              <a href="{{ .Data.ResendPath }}">Resend code</a>
+            </div>
+          </div>
+        {{ end }}
+
+        {{ range .Data.FormError.Errors }}
+          {{ template "error_message" . }}
+        {{ end }}
+
+        <button class="submit-button" type="submit" id="sign-in">
+          Set up authenticator app
+        </button>
+      </form>
+    </div>
+  </div>
+
+  {{ template "footer" }}
+{{ end }}
