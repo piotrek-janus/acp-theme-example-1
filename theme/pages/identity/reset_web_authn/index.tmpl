@@ -1,6 +1,6 @@
 {{ template "base" . }}
 
-{{ define "title" }} Lost Passkey {{ end }}
+{{ define "title" }} Reset passkey {{ end }}
 
 {{ define "content" }}
   {{ template "submit_button_disabling_script" . }}
@@ -15,13 +15,13 @@
 
       <form action="?login_id={{ .Data.SessionID }}&user_id={{ .Data.UserID}}&login_state={{ .Data.SessionState }}&server_id={{ .Data.ServerID }}" method="post">
 
-        <h2>Lost Passkey</h2>
+        <h2>Reset passkey</h2>
 
         <div class="form-field">
-          <label for="text-field-username-input" class="label-with-link">
-            Email | Mobile | Username
+          <label for="text-field-identifier-input">
+            Email | Mobile
           </label>
-          <input id="text-field-username-input" name="identifier" autocomplete="off" data-lpignore="true">
+          <input id="text-field-identifier-input" name="identifier" value="">
         </div>
 
         {{ if .Data.CaptchaSiteKey }}

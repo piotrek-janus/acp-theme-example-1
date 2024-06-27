@@ -1,6 +1,6 @@
 {{ template "base" . }}
 
-{{ define "title" }}Cloudentity - MFA verification{{ end }}
+{{ define "title" }}MFA verification{{ end }}
 
 {{ define "content" }}
 
@@ -12,8 +12,6 @@
   </div>
 
   <div class="card">
-    <div class="color-bar"></div>
-
     {{ if and .Data.Session .Data.Session.ClientInfo .Data.Session.ClientInfo.Name }}
       <h3 class="header header-with-avatar">
         <div>{{ substr 0 1 .Data.Session.ClientInfo.Name }}</div>

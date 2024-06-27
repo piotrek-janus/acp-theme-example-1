@@ -11,10 +11,6 @@
   </div>
 
   <div class="card">
-    <div class="color-bar"></div>
-
-    <h3 class="header">Reset authenticator app</h3>
-
     <div class="content">
 
       <form action="?login_id={{ .Data.SessionID }}&user_id={{ .Data.UserID}}&login_state={{ .Data.SessionState }}&identifier={{ .Data.Identifier }}&code={{ .Data.Code }}&server_id={{ .Data.ServerID }}" method="post">
@@ -32,7 +28,7 @@
           </div>
 
           <label for="text-field-totp-input">
-              <span id="totp-label">Enter generated code for verification</span>
+              <span id="totp-label">Enter generated code from the app</span>
           </label>
 
           <div id="totp-input-container" class="form-field otp-input-container">
@@ -45,7 +41,10 @@
         </div>
 
         {{ if not .Data.Code }}
-          <div class="form-field extra-top-margin" id="otp-container">
+          <div class="form-field extra-top-margin otp-container" id="otp-container">
+            <label for="text-field-otp-input">
+              <span id="otp-label">Provide verification code you received</span>
+            </label>
             <div id="otp-input-container" class="form-field otp-input-container">
               <input type="hidden" name="otp" value="" id="otp-input">
             </div>
@@ -61,7 +60,7 @@
         {{ end }}
 
         <button class="submit-button" type="submit" id="sign-in">
-          Set up authenticator app
+          Continue
         </button>
       </form>
     </div>

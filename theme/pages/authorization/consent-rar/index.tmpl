@@ -15,8 +15,6 @@
 
   {{ if or (gt (len .Data.ServicesWithScopes) 0) (gt (len .Data.ScopesWithoutService) 0)}}
     <div class="card" id="scopes">
-      <div class="color-bar"></div>
-
         {{ template "consent_header" . }}
 
         <div class="content">
@@ -33,7 +31,6 @@
 
   {{ if gt (len .Data.ServicesWithAuthorizationDetails) 0 }}
     <div class="card" id="rars" style="display: {{ if or (gt (len .Data.ServicesWithScopes) 0) (gt (len .Data.ScopesWithoutService) 0)}}none{{else}}block{{end}}">
-      <div class="color-bar"></div>
         {{ template "consent_header_rar" . }}
 
         <div class="content">

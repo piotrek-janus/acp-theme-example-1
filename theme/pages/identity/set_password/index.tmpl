@@ -12,18 +12,12 @@
   </div>
 
   <div class="card">
-    <div class="color-bar"></div>
-
-    <h3 class="header">Reset password</h3>
-
     <div class="content">
 
       <form action="?login_id={{ .Data.SessionID }}&user_id={{ .Data.UserID}}&login_state={{ .Data.SessionState }}&identifier={{ .Data.Identifier }}&code={{ .Data.Code }}&server_id={{ .Data.ServerID }}" method="post">
         {{ .Data.CsrfField }}
 
         <h2>Set password</h2>
-
-        <div class="header-info">Enter the new password</div>
 
         <div class="form-field">
           <label for="text-field-password-input">
@@ -59,7 +53,10 @@
         </div>
 
         {{ if not .Data.Code }}
-          <div class="form-field extra-top-margin" id="otp-container">
+          <div class="form-field extra-top-margin otp-container" id="otp-container">
+            <label for="text-field-otp-input">
+              <span id="otp-label">Provide verification code you received</span>
+            </label>
             <div id="otp-input-container" class="form-field otp-input-container">
               <input type="hidden" name="otp" value="" id="otp-input">
             </div>
@@ -75,7 +72,7 @@
         {{ end }}
 
         <button class="submit-button" type="submit" id="sign-in">
-          Set password
+            Continue
         </button>
       </form>
     </div>

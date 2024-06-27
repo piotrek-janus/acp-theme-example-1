@@ -34,12 +34,12 @@
     }
 
     function setButtonEnablementOnInput() {
-      var identifierInput = document.getElementById("text-field-username-input")
+      var identifierInput = document.getElementById("text-field-identifier-input")
       if (!!identifierInput) identifierInput.addEventListener('input', disableButtonsOnEmptyInputs);
     }
 
     function disableButtonsOnEmptyInputs() {
-      var identifierInput = document.getElementById("text-field-username-input")
+      var identifierInput = document.getElementById("text-field-identifier-input")
       var submitButton = document.getElementById("submit-next");
       if(submitButton && identifierInput) submitButton.disabled = !identifierInput.value || !captchaSuccess;
     }

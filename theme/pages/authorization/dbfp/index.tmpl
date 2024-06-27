@@ -1,0 +1,57 @@
+{{ template "base" . }}
+
+{{ define "title" }} Log in {{ end }}
+
+{{ define "content" }}
+  <div class="loading-overlay" id="loading-overlay">
+    <div class="spinner"></div>
+  </div>
+
+  <div class="header-container">
+    {{ template "header" .Config }}
+  </div>
+
+  <div id="content-container">
+    <div class="card">
+        <div id="sign-in">
+            <div class="content">
+                <div class="skeleton skeleton-input" style="width: 100%;"></div>
+                <div class="skeleton skeleton-input" style="width: 100%;"></div>
+                <div class="skeleton skeleton-button" style="width: 100%;"></div>
+            </div>
+        </div>
+    </div>
+  </div>
+
+  <script src="{{ .Data.DBFPURL }}"></script>
+
+  <script nonce="{{ .Nonce }}">
+    const baseURL = `${window.location.protocol}//${window.location.host}`;
+
+    function setDeadline() {
+      setTimeout(() => {
+        const redirectURL = new URL(decodeURI("{{ .Data.URL }}"), baseURL);
+        redirectURL.searchParams.set('dbfp', 'failure');
+        window.location.href = redirectURL.toString();
+      }, {{ .Data.Timeout }});
+    }
+
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(setDeadline, setDeadline);
+    } else {
+      setDeadline();
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      document.addEventListener('onBfpDataLoad', (e) => {
+        const redirectURL = new URL(decodeURI("{{ .Data.URL }}"), baseURL);
+        redirectURL.searchParams.set('dbfp', 'success');
+        window.location.href = redirectURL.toString();
+      });
+    });
+  </script>
+
+  </script>
+
+  {{ template "footer" }}
+{{ end }}
