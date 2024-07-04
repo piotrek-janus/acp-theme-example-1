@@ -1,6 +1,6 @@
 {{ define "otp_select" }}
 
-  <h4>{{ or .Data.Session.AuthenticationContext.name .Data.Session.Subject }}</h4>
+  <h4>{{ or .Data.Session.AuthenticationContext.name .Data.Session.AuthenticationContext.given_name .Data.Session.Subject }}</h4>
   <h3>Additional verification required</h3>
   <p>To proceed, select how you would like to verify your identity</p>
 
@@ -31,5 +31,5 @@
       </div>
     {{ end }}
   </div>
-       
+
 {{ end }}
