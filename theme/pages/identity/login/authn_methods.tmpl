@@ -1,0 +1,82 @@
+{{ define "authn_methods" }}
+
+    <div id="authn-mode-switch-container">
+      <div class="spacer-container">
+        <div>or log in with</div>
+      </div>
+
+      <div class="form-field">
+        {{ if .Data.AuthenticationMechanismsAvailability.password }}
+          {{ if ne .Data.AuthnView "password_view" }}
+              <button class="href-card" type="submit" name="action" value="change_to_password" id="login-option-password">
+                <div>
+                  <span class="href-card-avatar href-card-avatar-with-img small-icon">
+                    <img src="{{ .Config.Assets }}/static/images/password-icon-2.svg" alt="icon" />
+                  </span>
+                  <span>Password</span>
+                </div>
+                <i class="material-icons">navigate_next</i>
+              </button>
+          {{ end }}
+        {{ end }}
+
+        {{ if .Data.AuthenticationMechanismsAvailability.otp }}
+            {{ if ne .Data.AuthnView "otp_send_view" }}
+                <button class="href-card" type="submit" name="action" value="change_to_otp" id="login-option-code" style="display: flex">
+                    <div>
+                        <span class="href-card-avatar href-card-avatar-with-img small-icon">
+                            <img src="{{ .Config.Assets }}/static/images/otp-icon.svg" alt="icon" />
+                        </span>
+                        <span>Verification Code</span>
+                    </div>
+                    <i class="material-icons">navigate_next</i>
+                </button>
+            {{ end }}
+        {{ end }}
+
+        {{ if .Data.AuthenticationMechanismsAvailability.webauthn }}
+          {{if ne .Data.AuthnView "web_authn_view" }}
+              <button class="href-card" type="submit" name="action" value="change_to_web_authn" id="login-option-web-authn">
+                <div>
+                  <span class="href-card-avatar href-card-avatar-with-img small-icon">
+                    <img src="{{ .Config.Assets }}/static/images/webauthn-icon.svg" alt="icon" />
+                  </span>
+                  <span>Passkey</span>
+                </div>
+                <i class="material-icons">navigate_next</i>
+              </button>
+          {{ end }}
+        {{ end }}
+
+        {{ if .Data.AuthenticationMechanismsAvailability.totp }}
+          {{if ne .Data.AuthnView "totp_view" }}
+              <button class="href-card" type="submit" name="action" value="change_to_totp" id="login-option-totp">
+                <div>
+                  <span class="href-card-avatar href-card-avatar-with-img small-icon">
+                    <img src="{{ .Config.Assets }}/static/images/smartphone-icon.svg" alt="icon" />
+                  </span>
+                  <span>Authenticator Code</span>
+                </div>
+                <i class="material-icons">navigate_next</i>
+              </button>
+          {{ end }}
+        {{ end }}
+
+        {{ if .Data.AuthenticationMechanismsAvailability.arculix }}
+          {{if ne .Data.AuthnView "arculix_view" }}
+              <button class="href-card" type="submit" name="action" value="change_to_arculix" id="login-option-arculix">
+                <div>
+                  <span class="href-card-avatar href-card-avatar-with-img">
+                    <img src="{{ .Config.Assets }}/static/images/arculix-icon.svg" alt="icon" />
+                  </span>
+                  <span>Arculix</span>
+                </div>
+                <i class="material-icons">navigate_next</i>
+              </button>
+          {{ end }}
+        {{ end }}
+
+      </div>
+    </div>
+
+{{ end }}
