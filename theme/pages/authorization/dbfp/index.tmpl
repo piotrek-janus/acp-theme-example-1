@@ -43,6 +43,11 @@
       }, {{ .Data.Timeout }});
     }
 
+    setTimeout(() => {
+      const duration = performance.now() - startTime;
+      redirect('failure', duration);
+    }, {{ .Data.GPSTimeout }});
+
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(setDeadline, setDeadline);
     } else {
