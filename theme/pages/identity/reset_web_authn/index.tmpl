@@ -1,6 +1,6 @@
 {{ template "base" . }}
 
-{{ define "title" }} Reset passkey {{ end }}
+{{ define "title" }} Generate new passkey {{ end }}
 
 {{ define "content" }}
   {{ template "submit_button_disabling_script" . }}
@@ -15,7 +15,7 @@
 
       <form action="?login_id={{ .Data.SessionID }}&user_id={{ .Data.UserID}}&login_state={{ .Data.SessionState }}&server_id={{ .Data.ServerID }}&mode={{ .Data.Mode }}" method="post">
 
-        <h2>Reset passkey</h2>
+        <h2>Enroll new passkey</h2>
 
         <div class="form-field">
           <label for="text-field-identifier-input">
