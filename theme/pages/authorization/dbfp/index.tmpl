@@ -23,7 +23,7 @@
     </div>
   </div>
 
-  <script src="{{ .Data.DBFPURL }}"></script>
+  <script src="{{ .Data.DBFPURL }}" defer></script>
 
   <script nonce="{{ .Nonce }}">
     const baseURL = `${window.location.protocol}//${window.location.host}`;
@@ -36,27 +36,18 @@
       window.location.href = redirectURL.toString();
     }
 
-    function setDeadline() {
-      setTimeout(() => {
-        const duration = performance.now() - startTime;
-        console.log("dbfp timeout")
-        redirect('failure', duration);
-      }, {{ .Data.Timeout }});
-    }
-
     setTimeout(() => {
       const duration = performance.now() - startTime;
-      console.log("dbfp gps timeout")
+      console.log("dbfp timeout")
       redirect('failure', duration);
-    }, {{ .Data.GPSTimeout }});
-
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(setDeadline, setDeadline);
-    } else {
-      setDeadline();
-    }
+    }, {{ .Data.Timeout }});
 
     document.addEventListener('DOMContentLoaded', () => {
+      SecureAuth.getFingerprint({
+        enableGps: false,
+        jwtEnabled: true,
+        mode: "default",
+      });
       document.addEventListener('onBfpDataLoad', (e) => {
         const duration = performance.now() - startTime;
         console.log("loaded dbfp")
