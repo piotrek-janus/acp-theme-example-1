@@ -1,0 +1,19 @@
+{{ template "base" . }}
+
+{{ define "title" }} Challenge confirmed {{ end }}
+
+{{ define "content" }}
+
+  <div class="header-container">
+    {{ template "header" .Config }}
+  </div>
+
+  <div class="card">
+    <div class="content">
+      <h2>Success!</h2>
+      <div class="header-info">Challenge confirmed.</div>
+    </div>
+  </div>
+
+  {{ template "footer" }}
+{{ end }}
