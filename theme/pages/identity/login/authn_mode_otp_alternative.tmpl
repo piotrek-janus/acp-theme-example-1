@@ -18,4 +18,8 @@
     <button class="contained-button" type="submit" name="action" value="send_otp" id="send-code-button">Continue</button>
   </div>
 
+  {{ if .Data.AuthnModeSwitch }}
+      {{ template "authn_methods" . }}
+  {{ end }}
+
 {{ end }}
