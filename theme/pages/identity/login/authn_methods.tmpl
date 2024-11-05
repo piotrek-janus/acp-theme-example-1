@@ -21,8 +21,8 @@
         {{ end }}
 
         {{ if .Data.AuthenticationMechanismsAvailability.otp }}
-            {{ if ne .Data.AuthnView "otp_send_view" }}
-                <button class="href-card" type="submit" name="action" value="{{ if or .Data.IsForceAuthMode .Data.Is2FAStep }}send_otp{{ else }}change_to_otp{{ end }}" id="login-option-code" style="display: flex">
+            {{ if and (ne .Data.AuthnView "otp_send_view") (ne .Data.AuthnView "otp_verify_view") (ne .Data.AuthnView "otp_use_alternative_view") }}
+                <button class="href-card" type="submit" name="action" value="{{ if or .Data.IsForceAuthMode .Data.Is2FAStep (not (eq .Data.Identifier ""))}}send_otp{{ else }}change_to_otp{{ end }}" id="login-option-code" style="display: flex">
                     <div>
                         <span class="href-card-avatar href-card-avatar-with-img small-icon">
                             <img src="{{ .Config.Assets }}/static/images/otp-icon.svg" alt="icon" />
