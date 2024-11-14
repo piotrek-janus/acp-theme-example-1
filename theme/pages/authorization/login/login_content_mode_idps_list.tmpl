@@ -2,7 +2,6 @@
 
 <form action="?{{ $.Data.Query }}" method="post" id="sign-in-form">
   <input type="hidden" id="version" name="version" value="2">
-  <input type="hidden" id="source" name="source" value="main_login_page">
 
   <div class="error-container non-visible" id="idps-discovery-error">
     <i class="material-icons">error_outline</i>
@@ -48,92 +47,93 @@
   <div
     id="idps-list-header"
     class="spacer-container {{ if .Data.HasNonHiddenIDP }}visible{{ else }}non-visible{{ end }}"
-    {{ if .Data.HasNonHiddenIDP }}
-      data-default-style-display="block"
-    {{ else }}
-      data-default-style-display="none"
-    {{ end }}
   >
     {{ if or .Data.RememberedSignInMethod .Data.IDPDiscoveryEnabled }}
       <div>or log in with</div>
     {{ end }}
   </div>
 
+  <button
+    type="submit"
+    id="template-card"
+    class="href-card non-visible"
+    name="authentication_id"
+    value=""
+    title=""
+    form="sign-in-form"
+    formaction="?{{ $.Data.Query }}"
+  >
+    <div>
+      <img src="" alt="">
+      <span></span>
+    </div>
+    <i class="material-icons">navigate_next</i>
+  </button>
   <div id="idps-list">
     {{ range $method := .Data.Methods }}
-    <button
-      type="submit"
-      class="href-card {{ if $.Data.RememberedSignInMethod }}{{ if eq .ID $.Data.RememberedIDP.ID }}visible-flex{{ else }}non-visible{{ end }}{{ else }}{{ if .Hidden }}non-visible{{ else }}visible-flex{{ end }}{{ end }}"
-      name="authentication_id"
-      value="{{ .ID }}"
-      title="{{ .Name }}"
-      form="sign-in-form"
-      formaction="?{{ $.Data.Query }}"
-      {{ if $.Data.RememberedSignInMethod }}
-        {{ if eq .ID $.Data.RememberedIDP.ID }}
-          data-default-style-display="flex"
-        {{ else }}
-          data-default-style-display="none"
-        {{ end }}
-      {{ else }}
-        {{ if .Hidden }}
-          data-default-style-display="none"
-        {{ else }}
-          data-default-style-display="flex"
-        {{ end }}
-      {{ end }}
-    >
-      <div>
-        <img
-          {{ if and .LogoURI (gt (len .LogoURI) 0) }}
-            src="{{ .LogoURI }}"
-          {{ else }}
-            {{ if eq .Method "github" }}
-              src="/static/images/idps/github.svg"
-            {{ else if eq .Method "okta" }}
-              src="/static/images/idps/okta.svg"
-            {{ else if eq .Method "auth0" }}
-              src="/static/images/idps/auth0-icon.svg"
-            {{ else if eq .Method "saml" }}
-              src="/static/images/idps/saml-icon.svg"
-            {{ else if eq .Method "saml_v2" }}
-              src="/static/images/idps/saml-icon.svg"
-            {{ else if eq .Method "azureb2c" }}
-              src="/static/images/idps/azure-b2c-icon.svg"
-            {{ else if eq .Method "azure" }}
-              src="/static/images/idps/azure-icon.svg"
-            {{ else if eq .Method "cognito" }}
-              src="/static/images/idps/cognito-icon.svg"
-            {{ else if eq .Method "intelli_trust" }}
-              src="/static/images/idps/entrust-icon.svg"
-            {{ else if eq .Method "oidc" }}
-              src="/static/images/idps/openid-icon.svg"
-            {{ else if eq .Method "custom" }}
-              src="/static/images/idps/custom-circle.svg"
-            {{ else if eq .Method "external" }}
-              src="/static/images/idps/external-icon.svg"
-            {{ else if eq .Method "identity_pool" }}
-              src="/static/images/idps/cloudentity-icon.svg"
-            {{ else if eq .Method "organization" }}
-              src="/static/images/idps/organization-icon.svg"
-            {{ else if eq .Method "github_embedded" }}
-              src="/static/images/idps/github.svg"
-            {{ else if eq .Method "google_embedded" }}
-              src="/static/images/idps/google-icon.svg"
-            {{ else if eq .Method "google" }}
-              src="/static/images/idps/google-icon.svg"
-            {{ else if eq .Method "static" }}
-              src="/static/images/idps/sandbox-icon.svg"
-            {{ else }}
-              src=""
-            {{ end }}
-          {{ end }}
-          alt="{{ .Method }}"
+      {{ $visible := or (and $.Data.RememberedSignInMethod (eq .ID $.Data.RememberedIDP.ID)) (and (not $.Data.RememberedSignInMethod) (not .Hidden)) }}
+      {{ if $visible }}
+        <button
+          type="submit"
+          class="href-card visible-flex"
+          name="authentication_id"
+          value="{{ .ID }}"
+          title="{{ .Name }}"
+          form="sign-in-form"
+          formaction="?{{ $.Data.Query }}"
         >
-        <span>{{ .Name }}</span>
-      </div>
-      <i class="material-icons">navigate_next</i>
-    </button>
+          <div>
+            <img
+              {{ if and .LogoURI (gt (len .LogoURI) 0) }}
+                src="{{ .LogoURI }}"
+              {{ else }}
+                {{ if eq .Method "github" }}
+                  src="/static/images/idps/github.svg"
+                {{ else if eq .Method "okta" }}
+                  src="/static/images/idps/okta.svg"
+                {{ else if eq .Method "auth0" }}
+                  src="/static/images/idps/auth0-icon.svg"
+                {{ else if eq .Method "saml" }}
+                  src="/static/images/idps/saml-icon.svg"
+                {{ else if eq .Method "saml_v2" }}
+                  src="/static/images/idps/saml-icon.svg"
+                {{ else if eq .Method "azureb2c" }}
+                  src="/static/images/idps/azure-b2c-icon.svg"
+                {{ else if eq .Method "azure" }}
+                  src="/static/images/idps/azure-icon.svg"
+                {{ else if eq .Method "cognito" }}
+                  src="/static/images/idps/cognito-icon.svg"
+                {{ else if eq .Method "intelli_trust" }}
+                  src="/static/images/idps/entrust-icon.svg"
+                {{ else if eq .Method "oidc" }}
+                  src="/static/images/idps/openid-icon.svg"
+                {{ else if eq .Method "custom" }}
+                  src="/static/images/idps/custom-circle.svg"
+                {{ else if eq .Method "external" }}
+                  src="/static/images/idps/external-icon.svg"
+                {{ else if eq .Method "identity_pool" }}
+                  src="/static/images/idps/cloudentity-icon.svg"
+                {{ else if eq .Method "organization" }}
+                  src="/static/images/idps/organization-icon.svg"
+                {{ else if eq .Method "github_embedded" }}
+                  src="/static/images/idps/github.svg"
+                {{ else if eq .Method "google_embedded" }}
+                  src="/static/images/idps/google-icon.svg"
+                {{ else if eq .Method "google" }}
+                  src="/static/images/idps/google-icon.svg"
+                {{ else if eq .Method "static" }}
+                  src="/static/images/idps/sandbox-icon.svg"
+                {{ else }}
+                  src=""
+                {{ end }}
+              {{ end }}
+              alt="{{ .Method }}"
+            >
+            <span>{{ .Name }}</span>
+          </div>
+          <i class="material-icons">navigate_next</i>
+        </button>
+      {{ end }}
     {{ end }}
   </div>
 
