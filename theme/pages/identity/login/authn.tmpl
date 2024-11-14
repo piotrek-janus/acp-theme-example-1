@@ -10,13 +10,6 @@
       </div>
     {{ end }}
 
-    {{ if .Data.DisplayBackToMainLogin}}
-      <button id="go-back-button" type="submit" name="action" value="back_to_main_login_page">
-        <i class="material-icons">chevron_left</i>
-        Restart Login
-      </button>
-    {{ end }}
-
     {{ if eq .Data.AuthnView "password_view" }}
       {{ template "authn_password" . }}
     {{ else if eq .Data.AuthnView "otp_send_view" }}
