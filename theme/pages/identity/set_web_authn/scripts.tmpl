@@ -93,10 +93,10 @@
         webauthnError.value = error;
       })
       .finally(() => {
-        if(!webauthnError.value.startsWith("NotAllowedError:")) {
-          document.querySelector("#reset-form").submit();
-        } else {
+        if (webauthnError.value.startsWith("NotAllowedError:") || webauthnError.value.startsWith("AbortError:")) {
           webauthnError.value = '';
+        } else {
+          document.querySelector("#reset-form").submit();
         }
       });
     }
