@@ -77,9 +77,11 @@
     var form = document.querySelector('form');
     var view = {{ .Data.AuthnView }};
     var signInButton = document.getElementById('sign-in-button');
+    var usernameInput = document.getElementById('text-field-username-input');
+    var userIdField = document.getElementById('user-id');
 
     if (view === "web_authn_view") {
-        form.addEventListener("submit", function (e) {
+      form.addEventListener("submit", function (e) {
         if (e.submitter.id !== "web-authn-sign-in-button") {
           return;
         }
@@ -87,6 +89,13 @@
         e.preventDefault();
         webAuthnLogin();
       });
+
+      var identifier = usernameInput ? usernameInput.value : "";
+      var user_id = userIdField ? userIdField.value : "";
+
+      if (identifier !== "" || user_id !== "") {
+          webAuthnLogin();
+      }
     } else {
        form.addEventListener("submit", function (e) {
         if (signInButton) {
@@ -157,10 +166,10 @@
       webAuthnError.value = error;
     })
     .finally(() => {
-      if(!webAuthnError.value.startsWith("NotAllowedError:")) {
-          document.querySelector('form').submit();
+      if (webAuthnError.value.startsWith("NotAllowedError:") || webAuthnError.value.startsWith("AbortError:")) {
+        webAuthnError.value = '';
       } else {
-          webAuthnError.value = '';
+        document.querySelector('form').submit();
       }
     });
   }

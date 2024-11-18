@@ -5,15 +5,18 @@
   var view = "{{ .Data.Mode }}";
   var otpLength = {{ .Data.OtpLength }};
   var totpLength = {{ .Data.TotpLength }};
+  var codeNotExists = {{ eq .Data.Code "" }};
 
   document.addEventListener("DOMContentLoaded", function() {
-    if (view === "web_authn") {
-      initWebAuthn();
-    } else if (view === "password") {
-      initPassword();
+    if (!codeNotExists) {
+        if (view === "web_authn") {
+            initWebAuthn();
+        } else if (view === "password") {
+            initPassword();
+        }
+        initTotpInput('totp-input-container', totpLength );
     }
     initOtpInput('otp-input-container', otpLength );
-    initTotpInput('totp-input-container', totpLength );
   });
 
   function initPassword() {
@@ -42,6 +45,7 @@
       e.preventDefault();
       registerUser();
     });
+    registerUser();
   }
 
   function bufferEncode(value) {
@@ -95,7 +99,11 @@
         webAuthnError.value = error
       })
       .finally(() => {
-        document.querySelector('#sign-up-form').submit();
+          if (webAuthnError.value.startsWith("NotAllowedError:") || webAuthnError.value.startsWith("AbortError:")) {
+              webAuthnError.value = '';
+          } else {
+              document.querySelector('#sign-up-form').submit();
+          }
       });
     }
 
