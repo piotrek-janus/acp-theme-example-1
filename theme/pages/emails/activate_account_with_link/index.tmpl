@@ -4,7 +4,11 @@
 
 <div class="heading2">
 Excellent!
-<b> Your account is ready to be activated.</b>
+    {{ if .Data.AccountType }}
+        <b> Your {{.Data.AccountType}} account is ready to be activated.</b>
+    {{ else }}
+        <b> Your account is ready to be activated.</b>
+    {{ end }}
 </div>
 <div class="main-text">Just one more step to access it.</div>
 <div class="link-container">
