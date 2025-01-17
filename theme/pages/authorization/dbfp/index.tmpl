@@ -46,6 +46,7 @@
       SecureAuth.getFingerprint({
         enableGps: false,
         jwtEnabled: true,
+        apiEndpoint: "dbfp/data/fingerprint",
         mode: "default",
       });
       document.addEventListener('onBfpDataLoad', (e) => {
