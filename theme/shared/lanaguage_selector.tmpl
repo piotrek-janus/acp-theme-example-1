@@ -1,0 +1,208 @@
+{{ define "lanaguage_selector" }}
+
+<div class="flag-selector">
+  <span id="zone-display-name"></span>
+  <div class="dropdown-button-container">
+    <div id="dropdown-button">
+      <div id="dropdown-button-content">aa</div>
+      <i data-feather="chevron-up" class="dropdown-arrow-rotate" id="dropdown-arrow" style="display: inline"></i>
+    </div>
+  </div>
+
+  <div class="flag-dropdown" id="dropdown"></div>
+
+  <input type="hidden" name="languageID" id="languageID">
+</div>
+
+<script>
+  var acceptedLanguageObjects = [
+   { code: "af", name: "Afrikaans", flag: "🇿🇦" },
+   { code: "sq", name: "Shqip", flag: "🇦🇱" },
+   { code: "am", name: "አማርኛ", flag: "🇪🇹" },
+   { code: "ar", name: "العربية", flag: "🇸🇦" },
+   { code: "hy", name: "Հայերեն", flag: "🇦🇲" },
+   { code: "az", name: "Azərbaycan dili", flag: "🇦🇿" },
+   { code: "eu", name: "Euskara", flag: "🇪🇸" },
+   { code: "be", name: "Беларуская", flag: "🇧🇾" },
+   { code: "bn", name: "বাংলা", flag: "🇧🇩" },
+   { code: "bs", name: "Bosanski", flag: "🇧🇦" },
+   { code: "bg", name: "Български", flag: "🇧🇬" },
+   { code: "ca", name: "Català", flag: "🇪🇸" },
+   { code: "ceb", name: "Cebuano", flag: "🇵🇭" },
+   { code: "zh-CN", name: "中文（简体）", flag: "🇨🇳" },
+   { code: "zh-TW", name: "中文（繁體）", flag: "🇹🇼" },
+   { code: "hr", name: "Hrvatski", flag: "🇭🇷" },
+   { code: "cs", name: "Čeština", flag: "🇨🇿" },
+   { code: "da", name: "Dansk", flag: "🇩🇰" },
+   { code: "nl", name: "Nederlands", flag: "🇳🇱" },
+   { code: "en-US", name: "English (United States)", flag: "🇺🇸" },
+   { code: "en-GB", name: "English (United Kingdom)", flag: "🇬🇧" },
+   { code: "eo", name: "Esperanto", flag: "🏳️" },
+   { code: "et", name: "Eesti", flag: "🇪🇪" },
+   { code: "fi", name: "Suomi", flag: "🇫🇮" },
+   { code: "fr", name: "Français", flag: "🇫🇷" },
+   { code: "gl", name: "Galego", flag: "🇪🇸" },
+   { code: "ka", name: "ქართული", flag: "🇬🇪" },
+   { code: "de", name: "Deutsch", flag: "🇩🇪" },
+   { code: "el", name: "Ελληνικά", flag: "🇬🇷" },
+   { code: "gu", name: "ગુજરાતી", flag: "🇮🇳" },
+   { code: "ht", name: "Kreyòl ayisyen", flag: "🇭🇹" },
+   { code: "ha", name: "Hausa", flag: "🇳🇬" },
+   { code: "he", name: "עברית", flag: "🇮🇱" },
+   { code: "hi", name: "हिन्दी", flag: "🇮🇳" },
+   { code: "hmn", name: "Hmoob", flag: "🇨🇳" },
+   { code: "hu", name: "Magyar", flag: "🇭🇺" },
+   { code: "is", name: "Íslenska", flag: "🇮🇸" },
+   { code: "ig", name: "Igbo", flag: "🇳🇬" },
+   { code: "id", name: "Bahasa Indonesia", flag: "🇮🇩" },
+   { code: "ga", name: "Gaeilge", flag: "🇮🇪" },
+   { code: "it", name: "Italiano", flag: "🇮🇹" },
+   { code: "ja", name: "日本語", flag: "🇯🇵" },
+   { code: "jv", name: "Basa Jawa", flag: "🇮🇩" },
+   { code: "kn", name: "ಕನ್ನಡ", flag: "🇮🇳" },
+   { code: "kk", name: "Қазақ тілі", flag: "🇰🇿" },
+   { code: "km", name: "ខ្មែរ", flag: "🇰🇭" },
+   { code: "rw", name: "Ikinyarwanda", flag: "🇷🇼" },
+   { code: "ko", name: "한국어", flag: "🇰🇷" },
+   { code: "ku", name: "Kurdî", flag: "🇹🇷" },
+   { code: "ky", name: "Кыргызча", flag: "🇰🇬" },
+   { code: "lo", name: "ລາວ", flag: "🇱🇦" },
+   { code: "la", name: "Latina", flag: "🇻🇦" },
+   { code: "lv", name: "Latviešu", flag: "🇱🇻" },
+   { code: "lt", name: "Lietuvių", flag: "🇱🇹" },
+   { code: "lb", name: "Lëtzebuergesch", flag: "🇱🇺" },
+   { code: "mk", name: "Македонски", flag: "🇲🇰" },
+   { code: "mg", name: "Malagasy", flag: "🇲🇬" },
+   { code: "ms", name: "Bahasa Melayu", flag: "🇲🇾" },
+   { code: "ml", name: "മലയാളം", flag: "🇮🇳" },
+   { code: "mt", name: "Malti", flag: "🇲🇹" },
+   { code: "mi", name: "Te Reo Māori", flag: "🇳🇿" },
+   { code: "mr", name: "मराठी", flag: "🇮🇳" },
+   { code: "my", name: "မြန်မာစာ", flag: "🇲🇲" },
+   { code: "ne", name: "नेपाली", flag: "🇳🇵" },
+   { code: "no", name: "Norsk", flag: "🇳🇴" },
+   { code: "pl", name: "Polski", flag: "🇵🇱" },
+   { code: "pt", name: "Português", flag: "🇧🇷" },
+   { code: "pa", name: "ਪੰਜਾਬੀ", flag: "🇮🇳" },
+   { code: "ro", name: "Română", flag: "🇷🇴" },
+   { code: "ru", name: "Русский", flag: "🇷🇺" },
+   { code: "sr", name: "Српски", flag: "🇷🇸" },
+   { code: "si", name: "සිංහල", flag: "🇱🇰" },
+   { code: "sk", name: "Slovenčina", flag: "🇸🇰" },
+   { code: "sl", name: "Slovenščina", flag: "🇸🇮" },
+   { code: "es-ES", name: "Español (España)", flag: "🇪🇸" },
+   { code: "es-MX", name: "Español (México)", flag: "🇲🇽" },
+   { code: "su", name: "Basa Sunda", flag: "🇮🇩" },
+   { code: "sw", name: "Kiswahili", flag: "🇰🇪" },
+   { code: "sv", name: "Svenska", flag: "🇸🇪" },
+   { code: "tl", name: "Filipino", flag: "🇵🇭" },
+   { code: "ta", name: "தமிழ்", flag: "🇮🇳" },
+   { code: "te", name: "తెలుగు", flag: "🇮🇳" },
+   { code: "th", name: "ไทย", flag: "🇹🇭" },
+   { code: "tr", name: "Türkçe", flag: "🇹🇷" },
+   { code: "uk", name: "Українська", flag: "🇺🇦" },
+   { code: "ur", name: "اردو", flag: "🇵🇰" },
+   { code: "vi", name: "Tiếng Việt", flag: "🇻🇳" },
+   { code: "cy", name: "Cymraeg", flag: "🇬🇧" },
+   { code: "xh", name: "isiXhosa", flag: "🇿🇦" },
+   { code: "yi", name: "ייִדיש", flag: "🇮🇱" },
+   { code: "zu", name: "isiZulu", flag: "🇿🇦" }
+  ];
+
+  var languages = [];
+  {{ range .SupportedLocales }}
+    languages.push("{{ . }}");
+  {{ end }}
+  var currentLanguage =  {{ or .CurrentLocale "en-US" }};
+  var dropdownButtonContent;
+  var flagDropdown;
+  var input;
+
+  document.addEventListener('DOMContentLoaded', function () {
+    var dropdownButton = document.querySelector("#dropdown-button");
+    var dropdownMenu = document.querySelector("#dropdown");
+    var toggleArrow = document.querySelector("#dropdown-arrow");
+    dropdownButtonContent = document.querySelector("#dropdown-button-content");
+    input = document.querySelector("#languageID");
+
+    flagDropdown = document.querySelector('.flag-dropdown');
+
+    function toggleDropdown () {
+      dropdownMenu.classList.toggle("dropdown-show");
+      toggleArrow.classList.toggle("dropdown-arrow-rotate");
+    };
+
+    dropdownButton.addEventListener("click", function (e) {
+      e.stopPropagation();
+      toggleDropdown();
+    });
+
+    document.documentElement.addEventListener("click", function () {
+      if (dropdownMenu.classList.contains("dropdown-show")) {
+        toggleDropdown();
+      }
+    });
+
+    renderDropdownInput();
+
+    languages.forEach(function (language) {
+      var languageObj = acceptedLanguageObjects.find(function (obj) {
+        return obj.code === language;
+      });
+
+      if (!languageObj) {
+        return;
+      }
+
+      var flatButton = document.createElement('button');
+      var nameSpan = document.createElement('span');
+      flatButton.setAttribute('id', "region-option-" + language);
+      nameSpan.textContent = languageObj.name;
+      nameSpan.setAttribute("class", "language-option-name");
+      flatButton.textContent = languageObj.flag;
+      flatButton.appendChild(nameSpan);
+      flatButton.addEventListener("click", function () {
+        handleLanguageChange(language);
+      });
+
+      flagDropdown.appendChild(flatButton);
+    });
+  });
+
+  function setLanguageCookie(language) {
+    var expirationDate = new Date();
+    expirationDate.setFullYear(expirationDate.getFullYear() + 100); // 100 years from now
+    var cookieString = "acp_language=" + encodeURIComponent(language) + "; expires=" + expirationDate.toUTCString() + "; path=/";
+    document.cookie = cookieString;
+  }
+
+  function renderDropdownInput () {
+    var language = languages.find(function (language) {
+      return language === currentLanguage;
+    })
+    if (!language) return;
+
+    var languageObj = acceptedLanguageObjects.find(function (obj) {
+      return obj.code === language;
+    });
+    if (!languageObj) return;
+
+    dropdownButtonContent.innerHTML = "";
+
+    var flag = document.createElement('div');
+    flag.textContent = languageObj.flag;
+    flag.className = "flag-img";
+
+    dropdownButtonContent.append(flag);
+    input.value = currentLanguage;
+  }
+
+  function handleLanguageChange (id) {
+    currentLanguage = id;
+    renderDropdownInput();
+    setLanguageCookie(id);
+    location.reload();
+  }
+</script>
+
+{{ end }}
