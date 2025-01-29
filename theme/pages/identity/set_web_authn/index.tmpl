@@ -9,7 +9,7 @@
   </div>
 
   <div class="card">
-    <div class="content">
+    <div class="content" id="main-content">
 
       {{ range .Data.FormError.Fields }}
         {{ template "error_message" . }}
@@ -43,7 +43,7 @@
 
         <button class="submit-button no-bottom-margin extra-top-margin" type="submit" id="reset-button">
           <span>Continue</span>
-          <div class="non-visible">{{ template "loader" }}</div>
+          <div class="non-visible">{{ template "loader" . }}</div>
         </button>
 
         <input type="hidden" name="web_authn_error" id="hidden-text-field-webauthn-error">
@@ -53,7 +53,7 @@
     </div>
   </div>
 
-  {{ template "footer" }}
+  {{ template "footer" . }}
 
   {{ template "identity_reset_passkey_scripts" . }}
 

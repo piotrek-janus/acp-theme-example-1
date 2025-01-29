@@ -14,7 +14,7 @@
     {{ $mode := .Data.Mode }}
 
     <div class="card">
-      <div class="content">
+      <div class="content" id="main-content">
 
         {{ range .Data.FormError.Errors }}
           <div class="error-container">
@@ -36,5 +36,5 @@
     </div>
   </form>
 
-  {{ template "footer" }}
+  {{ template "footer" . }}
 {{ end }}
