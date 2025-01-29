@@ -14,7 +14,7 @@
   <div id="content-container">
     <div class="card">
       <div id="sign-in">
-        <div class="content">
+        <div class="content" id="main-content">
           <div class="skeleton skeleton-input" style="width: 100%;"></div>
           <div class="skeleton skeleton-input" style="width: 100%;"></div>
           <div class="skeleton skeleton-button" style="width: 100%;"></div>
@@ -57,5 +57,5 @@
     });
   </script>
 
-  {{ template "footer" }}
+  {{ template "footer" . }}
 {{ end }}

@@ -3,13 +3,13 @@
   <div class="log-in-header-container">
       <h2 id="log-in-header">{{ if .Data.IsForceAuthMode}}Confirm{{ else }}Log in{{ end }} with authenticator</h2>
       {{ if .Data.Is2FAStep }}
-          <img src="{{ .Config.Assets }}/static/images/2fa-icon.svg" alt="icon" class="icon-2fa"/>
+          <img src="{{ .Config.Assets }}/static/images/2fa-icon.svg" alt="second factor step" class="icon-2fa"/>
       {{ end }}
   </div>
 
   {{ if .Data.IsForceAuthMode}}
       <div class="login-welcome-back-card">
-        <img src="{{ .Config.Assets }}/static/images/person-icon.svg" alt="icon"/>
+        <img src="{{ .Config.Assets }}/static/images/person-icon.svg" alt="person icon"/>
         <div>
           <div class="login-welcome-back-card-name">
             {{ .Data.UserDisplayName }}
@@ -28,7 +28,7 @@
    <div class="form-field totp-container" id="totp-container">
        <label for="text-field-totp-input">
            <span id="totp-label">Enter code from your authenticator app</span>
-           <a href="{{ .Data.ResetTOTPPath }}" id="forgot-totp" class="input-above-link" tabindex="1">Lost authenticator?</a>
+           <a href="{{ .Data.ResetTOTPPath }}" id="forgot-totp" class="input-above-link" tabindex="0">Lost authenticator?</a>
        </label>
 
        <div id="totp-input-container" class="form-field otp-input-container">

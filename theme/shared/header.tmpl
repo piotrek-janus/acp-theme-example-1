@@ -3,9 +3,9 @@
 <div class="aut-banner-logo">
   {{ if eq .Styling.LogoURL "/static/images/no-logo.svg" }}
   {{ else if .Styling.LogoURL }}
-    <img src="{{ .Styling.LogoURL }}" alt="Logo" crossorigin="anonymous">
+    <img src="{{ .Styling.LogoURL }}" alt="SecureAuth company logo" crossorigin="anonymous">
   {{ else }}
-    <img src="{{ .Root }}/static/images/sa-logo-white.svg" alt="SecureAuth" />
+    <img src="{{ .Root }}/static/images/sa-logo-white.svg" alt="SecureAuth company logo" />
   {{ end }}
 </div>
 

@@ -16,7 +16,7 @@
 
       {{ template "consent_header" . }}
 
-      <div class="content">
+      <div class="content" id="main-content">
         {{ if .Data.ScopesWithoutService }}
           {{ template "consent_scopes_without_service" . }}
         {{ end }}
