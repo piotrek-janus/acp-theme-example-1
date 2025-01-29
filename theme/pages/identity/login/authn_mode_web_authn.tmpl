@@ -5,7 +5,7 @@
             {{ if .Data.IsForceAuthMode}}Confirm{{ else }}Log in{{ end }} with passkey
         </h2>
         {{ if .Data.Is2FAStep }}
-            <img src="{{ .Config.Assets }}/static/images/2fa-icon.svg" alt="icon" class="icon-2fa"/>
+            <img src="{{ .Config.Assets }}/static/images/2fa-icon.svg" alt="second factor step" class="icon-2fa"/>
         {{ end }}
     </div>
 
@@ -15,7 +15,7 @@
             <a href="{{ .Data.ResetWebAuthnPath }}" id="forgot-passkey" class="input-above-link">No access to passkey?</a>
         </label>
         <div class="login-welcome-back-card">
-            <img src="{{ .Config.Assets }}/static/images/person-icon.svg" alt="icon"/>
+            <img src="{{ .Config.Assets }}/static/images/person-icon.svg" alt="person"/>
             <div>
             <div class="login-welcome-back-card-name">
                 {{ .Data.UserDisplayName }}

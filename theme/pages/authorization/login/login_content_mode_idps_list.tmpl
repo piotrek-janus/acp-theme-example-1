@@ -34,7 +34,7 @@
 
       <button class="submit-button" type="button" id="sign-in-button" disabled>
         <span>Continue</span>
-        <div class="non-visible">{{ template "loader" }}</div>
+        <div class="non-visible">{{ template "loader" . }}</div>
       </button>
     </div>
 
@@ -128,7 +128,7 @@
                   src=""
                 {{ end }}
               {{ end }}
-              alt="{{ .Method }}"
+              alt="{{ .Method }} idp icon"
             >
             <span>{{ .Name }}</span>
           </div>

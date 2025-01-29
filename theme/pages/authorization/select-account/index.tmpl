@@ -9,7 +9,7 @@
   </div>
 
   <div class="card">
-    <div class="content">
+    <div class="content" id="main-content">
       {{ .Data.CsrfField }}
 
       <h2 class="margin-bottom-16">Choose an account</h2>
@@ -18,7 +18,7 @@
 
       <a class="choose-account-card-link" href="{{ .Data.SelectOriginalAccountURL }}">
         <div class="login-welcome-back-card">
-          <img src="{{ .Config.Assets }}/static/images/person-icon.svg" alt="icon"/>
+          <img src="{{ .Config.Assets }}/static/images/person-icon.svg" alt="welcome back image"/>
           <div>
             <div class="login-welcome-back-card-name">
               {{ or .Data.SSOSession.AuthenticationContext.name .Data.SSOSession.Subject }}
@@ -36,5 +36,5 @@
     </div>
   </div>
 
-  {{ template "footer" }}
+  {{ template "footer" . }}
 {{ end }}
