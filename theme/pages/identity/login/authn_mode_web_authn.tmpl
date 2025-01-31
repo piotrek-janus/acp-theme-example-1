@@ -2,7 +2,11 @@
 
     <div class="log-in-header-container">
         <h2 id="log-in-header" {{ if .Data.IsForceAuthMode}}class="no-margin-bottom"{{ end }}>
-            {{ if .Data.IsForceAuthMode}}Confirm{{ else }}Log in{{ end }} with passkey
+            {{ if .Data.IsForceAuthMode}}
+                {{ T . "identity.login.authn_mode_web_authn.confirm_with" }}
+            {{ else }}
+                {{ T . "identity.login.authn_mode_web_authn.login_with" }}
+            {{ end }} 
         </h2>
         {{ if .Data.Is2FAStep }}
             <img src="{{ .Config.Assets }}/static/images/2fa-icon.svg" alt="second factor step" class="icon-2fa"/>
@@ -12,7 +16,7 @@
     {{ if .Data.IsForceAuthMode}}
         <label class="label-with-link">
             <span id="empty-webauthn-label"></span>
-            <a href="{{ .Data.ResetWebAuthnPath }}" id="forgot-passkey" class="input-above-link">No access to passkey?</a>
+            <a href="{{ .Data.ResetWebAuthnPath }}" id="forgot-passkey" class="input-above-link">{{ T . "identity.login.authn_mode_web_authn.no_access" }}</a>
         </label>
         <div class="login-welcome-back-card">
             <img src="{{ .Config.Assets }}/static/images/person-icon.svg" alt="person"/>
@@ -25,8 +29,8 @@
     {{ else }}
         <div class="form-field">
           <label for="text-field-username-input" class="label-with-link">
-            <span id="username-label">Email | Mobile | Username</span>
-            <a href="{{ .Data.ResetWebAuthnPath }}" id="forgot-passkey" class="input-above-link">No access to passkey?</a>
+            <span id="username-label">{{ T . "identity.login.authn_mode_web_authn.username_label" }}</span>
+            <a href="{{ .Data.ResetWebAuthnPath }}" id="forgot-passkey" class="input-above-link">{{ T . "identity.login.authn_mode_web_authn.no_access" }}</a>
           </label>
           <input id="text-field-username-input" name="identifier" value="{{ .Data.Identifier }}"{{ if .Data.Is2FAStep }} disabled{{ end }}>
         </div>
@@ -38,9 +42,7 @@
 
     {{ template "reduce_mfa_prompts" . }}
 
-    <button class="submit-button" type="submit" id="web-authn-sign-in-button">
-        Continue
-    </button>
+    <button class="submit-button" type="submit" id="web-authn-sign-in-button">{{ T . "identity.login.authn_mode_web_authn.continue" }}</button>
 
     {{ if .Data.AuthnModeSwitch }}
         {{ template "authn_methods" . }}
