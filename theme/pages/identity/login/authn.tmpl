@@ -13,7 +13,7 @@
     {{ if .Data.DisplayBackToMainLogin}}
       <button id="go-back-button" type="submit" name="action" value="back_to_main_login_page">
         <i class="material-icons">chevron_left</i>
-        Restart Login
+        {{ T . "identity.login.authn.restart_login" }}
       </button>
     {{ end }}
 
@@ -41,13 +41,13 @@
               <input type="checkbox" name="remember_my_sign_in_method" tabindex="-1" {{ if .Data.RememberAuthnMode }} checked {{ end }}>
               <span class="slider"></span>
             </div>
-            <span>Remember my selection</span>
+            <span>{{ T . "identity.login.authn.remember_selection" }}</span>
           </label>
         {{ end }}
       </div>
 
       {{ if and (.Data.PublicRegistration) (not .Data.IsForceAuthMode)}}
-        <button id="sign-up-button" type="submit" name="action" value="change_to_register">Sign Up</button>
+        <button id="sign-up-button" type="submit" name="action" value="change_to_register">{{ T . "identity.login.authn.sign_up" }}</button>
       {{ end }}
     </div>
 
