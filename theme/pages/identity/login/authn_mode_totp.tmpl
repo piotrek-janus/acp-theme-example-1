@@ -1,9 +1,15 @@
 {{ define "authn_totp" }}
 
   <div class="log-in-header-container">
-      <h2 id="log-in-header">{{ if .Data.IsForceAuthMode}}Confirm{{ else }}Log in{{ end }} with authenticator</h2>
+      <h2 id="log-in-header">
+        {{ if .Data.IsForceAuthMode}}
+            {{ T . "identity.login.authn_mode_totp.confirm_with" }}
+        {{ else }}
+            {{ T . "identity.login.authn_mode_totp.login_with" }}
+        {{ end }} 
+      </h2>
       {{ if .Data.Is2FAStep }}
-          <img src="{{ .Config.Assets }}/static/images/2fa-icon.svg" alt="second factor icon" class="icon-2fa"/>
+          <img src="{{ .Config.Assets }}/static/images/2fa-icon.svg" alt="second factor step" class="icon-2fa"/>
       {{ end }}
   </div>
 
@@ -19,7 +25,7 @@
   {{ else }}
       <div class="form-field">
         <label for="text-field-username-input" class="label-with-link">
-          <span id="username-label">Email | Mobile | Username</span>
+          <span id="username-label">{{ T . "identity.login.authn_mode_totp.username_label" }}</span>
         </label>
             <input id="text-field-username-input" name="identifier" value="{{ .Data.Identifier }}"{{ if .Data.Is2FAStep }} disabled{{ end }}>
       </div>
@@ -27,8 +33,8 @@
 
    <div class="form-field totp-container" id="totp-container">
        <label for="text-field-totp-input">
-           <span id="totp-label">Enter code from your authenticator app</span>
-           <a href="{{ .Data.ResetTOTPPath }}" id="forgot-totp" class="input-above-link" tabindex="0">Lost authenticator?</a>
+           <span id="totp-label">{{ T . "identity.login.authn_mode_totp.totp_label" }}</span>
+           <a href="{{ .Data.ResetTOTPPath }}" id="forgot-totp" class="input-above-link" tabindex="0">{{ T . "identity.login.authn_mode_totp.lost_authenticator" }}</a>
        </label>
 
        <div id="totp-input-container" class="form-field otp-input-container">
@@ -38,9 +44,7 @@
 
   {{ template "reduce_mfa_prompts" . }}
 
-  <button class="submit-button" type="submit" id="totp-sign-in-button">
-      Continue
-  </button>
+  <button class="submit-button" type="submit" id="totp-sign-in-button">{{ T . "identity.login.authn_mode_totp.continue" }}</button>
 
   {{ if .Data.AuthnModeSwitch }}
     {{ template "authn_methods" . }}

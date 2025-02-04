@@ -2,15 +2,15 @@
 
     <div class="notification-container" id="code-sent-notification">
         <i class="material-icons">send</i>
-        <span>We sent a code to {{ .Data.ResolvedDestinationAddress }}</span>
-    <button id="use-alternative-address-button" type="submit" name="action" value="change_to_otp_use_alternative">Use Alternative</button>
+        <span>{{ T . "identity.login.authn_mode_otp_verify.code_sent" }} {{ .Data.ResolvedDestinationAddress }}</span>
+    <button id="use-alternative-address-button" type="submit" name="action" value="change_to_otp_use_alternative">{{ T . "identity.login.authn_mode_otp_verify.use_alternative" }}</button>
     </div>
 
   <input id="original-identifier-input" type="hidden" name="destination_address" value="{{ .Data.ResolvedDestinationAddress }}">
     <input type="checkbox" name="otpMode" id="otpMode" checked class="non-visible">
 
     <div class="log-in-header-container">
-        <h2 id="log-in-header">Verify code</h2>
+        <h2 id="log-in-header">{{ T . "identity.login.authn_mode_otp_verify.verify_code" }}</h2>
         {{ if .Data.Is2FAStep }}
             <img src="{{ .Config.Assets }}/static/images/2fa-icon.svg" alt="second factor step" class="icon-2fa"/>
         {{ end }}
@@ -28,9 +28,9 @@
     {{ else }}
     <div class="form-field">
         <label for="text-field-username-input" class="label-with-link">
-            <span id="username-label">User Identifier</span>
+            <span id="username-label">{{ T . "identity.login.authn_mode_otp_verify.user_identifier" }}</span>
             {{ if not .Data.Is2FAStep }}
-                <button id="not-you-button" type="submit" name="action" value="change_to_otp">Change</button>
+                <button id="not-you-button" type="submit" name="action" value="change_to_otp">{{ T . "identity.login.authn_mode_otp_verify.change" }}</button>
             {{ end }}
         </label>
         <input id="text-field-username-input" name="identifier" value="{{ .Data.Identifier }}" disabled>
@@ -42,8 +42,8 @@
             <input type="hidden" name="otp" value="" id="otp-input">
         </div>
         <div class="footer-with-link">
-            Still didn't receive?
-            <button id="resend-otp" type="submit" name="action" value="send_otp">Resend Code</button>
+            {{ T . "identity.login.authn_mode_otp_verify.still_didnt_receive" }}
+            <button id="resend-otp" type="submit" name="action" value="send_otp">{{ T . "identity.login.authn_mode_otp_verify.resend_code" }}</button>
         </div>
     </div>
 
@@ -51,11 +51,11 @@
 
     {{ if and (or .Data.Is2FAStep .Data.IsForceAuthMode) .Data.AuthnModeSwitch }}
         <div class="buttons-container-full-width">
-            <button class="text-button" type="submit" name="action" value="change_to_otp">Back</button>
-            <button class="contained-button" type="submit" id="verify-button">Continue</button>
+            <button class="text-button" type="submit" name="action" value="change_to_otp">{{ T . "identity.login.authn_mode_otp_verify.back" }}</button>
+            <button class="contained-button" type="submit" id="verify-button">{{ T . "identity.login.authn_mode_otp_verify.continue" }}</button>
           </div>
     {{ else }}
-        <button class="submit-button" type="submit" id="verify-button">Continue</button>
+        <button class="submit-button" type="submit" id="verify-button">{{ T . "identity.login.authn_mode_otp_verify.continue" }}</button>
     {{ end }}
 
     {{ if .Data.AuthnModeSwitch }}

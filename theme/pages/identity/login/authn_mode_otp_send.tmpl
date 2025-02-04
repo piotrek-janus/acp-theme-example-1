@@ -1,7 +1,7 @@
 {{ define "authn_otp_send" }}
 
   <div class="log-in-header-container">
-      <h2 id="log-in-header">{{ if .Data.IsForceAuthMode}}Confirm{{ else }}Log in{{ end }} with verification code</h2>
+      <h2 id="log-in-header">{{ if .Data.IsForceAuthMode}}{{ T . "identity.login.authn_mode_otp_send.confirm" }}{{ else }}{{ T . "identity.login.authn_mode_otp_send.log_in" }}{{ end }} {{ T . "identity.login.authn_mode_otp_send.with_verification_code" }}</h2>
       {{ if .Data.Is2FAStep }}
           <img src="{{ .Config.Assets }}/static/images/2fa-icon.svg" alt="second factor step" class="icon-2fa"/>
       {{ end }}
@@ -19,7 +19,7 @@
   {{ else }}
   <div class="form-field">
     <label for="text-field-username-input" class="label-with-link">
-      <span id="username-label">Email | Mobile | Username</span>
+      <span id="username-label">{{ T . "identity.login.authn_mode_otp_send.email_mobile_username" }}</span>
     </label>
       <input id="text-field-username-input" name="identifier" value="{{ .Data.Identifier }}"{{ if .Data.Is2FAStep }} disabled{{ end }}>
   </div>
@@ -28,7 +28,7 @@
   {{ template "reduce_mfa_prompts" . }}
 
   <button class="submit-button" type="submit" name="action" value="send_otp" id="send-code-button">
-    Continue
+    {{ T . "identity.login.authn_mode_otp_send.continue" }}
   </button>
 
   {{ if .Data.AuthnModeSwitch }}
