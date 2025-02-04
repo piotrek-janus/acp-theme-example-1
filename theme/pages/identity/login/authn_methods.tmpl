@@ -2,7 +2,7 @@
 
     <div id="authn-mode-switch-container">
       <div class="spacer-container">
-        <div>{{ T . "identity.login.authn_methods.or" }}{{ if not .Data.IsForceAuthMode}} {{ T . "identity.login.authn_methods.log_in_with" }}{{ end }}</div>
+        <div>or{{ if not .Data.IsForceAuthMode}} log in with{{ end }}</div>
       </div>
 
       <div class="form-field">
@@ -13,7 +13,7 @@
                   <span class="href-card-avatar href-card-avatar-with-img small-icon">
                     <img src="{{ .Config.Assets }}/static/images/password-icon-2.svg" alt="password method image" />
                   </span>
-                  <span>{{ T . "identity.login.authn_methods.password" }}</span>
+                  <span>Password</span>
                 </div>
                 <i class="material-icons">navigate_next</i>
               </button>
@@ -27,7 +27,7 @@
                         <span class="href-card-avatar href-card-avatar-with-img small-icon">
                             <img src="{{ .Config.Assets }}/static/images/otp-icon.svg" alt="verification code method image" />
                         </span>
-                        <span>{{ T . "identity.login.authn_methods.verification_code" }}</span>
+                        <span>Verification Code</span>
                     </div>
                     <i class="material-icons">navigate_next</i>
                 </button>
@@ -41,7 +41,7 @@
                   <span class="href-card-avatar href-card-avatar-with-img small-icon">
                     <img src="{{ .Config.Assets }}/static/images/webauthn-icon.svg" alt="passkey method image" />
                   </span>
-                  <span>{{ T . "identity.login.authn_methods.passkey" }}</span>
+                  <span>Passkey</span>
                 </div>
                 <i class="material-icons">navigate_next</i>
               </button>
@@ -55,7 +55,7 @@
                   <span class="href-card-avatar href-card-avatar-with-img small-icon">
                     <img src="{{ .Config.Assets }}/static/images/smartphone-icon.svg" alt="authenticator code method image" />
                   </span>
-                  <span>{{ T . "identity.login.authn_methods.authenticator_code" }}</span>
+                  <span>Authenticator Code</span>
                 </div>
                 <i class="material-icons">navigate_next</i>
               </button>
