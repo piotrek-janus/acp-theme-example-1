@@ -1,10 +1,10 @@
 {{ define "authn_use_otp_alternative" }}
 
-  <h2 id="log-in-header">{{ T . "identity.login.authn_mode_otp_alternative.provide_alternative" }}</h2>
+  <h2 id="log-in-header">Provide alternative</h2>
 
   <div class="form-field">
     <label for="text-field-username-input" class="label-with-link">
-      <span id="username-label">{{ T . "identity.login.authn_mode_otp_alternative.email_or_mobile" }}</span>
+      <span id="username-label">Email | Mobile</span>
     </label>
     <input id="text-field-username-input" name="destination_address" value="{{ .Data.ResolvedDestinationAddress }}">
   </div>
@@ -14,8 +14,8 @@
   {{ template "reduce_mfa_prompts" . }}
 
   <div class="buttons-container-full-width">
-    <button class="text-button" type="submit" name="action" value="change_to_otp_verify" id="back-to-verify-otp">{{ T . "identity.login.authn_mode_otp_alternative.back" }}</button>
-    <button class="contained-button" type="submit" name="action" value="send_otp" id="send-code-button">{{ T . "identity.login.authn_mode_otp_alternative.continue" }}</button>
+    <button class="text-button" type="submit" name="action" value="change_to_otp_verify" id="back-to-verify-otp">Back</button>
+    <button class="contained-button" type="submit" name="action" value="send_otp" id="send-code-button">Continue</button>
   </div>
   <br />
 

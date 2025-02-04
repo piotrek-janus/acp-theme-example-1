@@ -1,6 +1,6 @@
 {{ template "base" . }}
 
-{{ define "title" }}{{ T . "identity.login.index.log_in" }}{{ end }}
+{{ define "title" }}Log in{{ end }}
 
 {{ define "content" }}
   {{ template "identity_login_scripts" . }}
@@ -15,7 +15,7 @@
       {{ if .Data.AuthnView }}
         {{ template "authn" . }}
       {{ else }}
-        <div class="alert-danger">{{ T . "identity.login.index.no_mechanisms" }}</div>
+        <div class="alert-danger">No Authentication Mechanisms Enabled</div>
       {{ end }}
     </div>
   </div>
