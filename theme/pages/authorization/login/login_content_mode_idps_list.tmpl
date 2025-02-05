@@ -39,7 +39,7 @@
     </div>
 
     {{ else }}
-      <h2 id="log-in-header" class="header-small-margin">{{ T . "authorization.login.login_content_mode_idps_list.log_in_with" }}</h2>
+      <h2 id="log-in-header" class="header-small-margin">Log in with</h2>
       <input type="hidden" name="username" value="{{ .Data.Identifier }}">
       <input type="hidden" name="password" value="">
     {{ end }}
@@ -145,7 +145,7 @@
           <input type="checkbox" name="remember_my_sign_in_method" tabindex="-1" {{ if .Data.RememberedSignInMethod }} checked {{ end }}>
           <span class="slider"></span>
         </div>
-        <span>{{ T . "authorization.login.login_content_mode_idps_list.remember_me" }}</span>
+        <span>Remember me</span>
       </label>
     </div>
   </div>
