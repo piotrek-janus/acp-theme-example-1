@@ -21,9 +21,11 @@
       <div id="username-password-form">
       {{ .Data.CsrfField }}
 
+      <div><h3>some extra text</h3></div>
+
       <div class="form-field">
         <label for="text-field-username-input" class="label-with-link">
-          Email | Mobile | Username
+          Email
           <button id="not-you-button" class="non-visible" type="button">Change</button>
         </label>
         <input id="text-field-username-input" name="username" autocomplete="off" data-lpignore="true" value="{{ .Data.Identifier }}">
