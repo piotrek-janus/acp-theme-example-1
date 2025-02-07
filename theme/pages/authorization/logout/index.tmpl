@@ -15,7 +15,7 @@
   </div>
 
   <div class="card">
-    <div class="content">
+    <div class="content" id="main-content">
 
     {{ if .Data.LoggedOutPage }}
       <h2 class="header logged-out">You have logged out.</h2>
@@ -23,7 +23,7 @@
       <h2 class="margin-bottom-16">Would you like to log out?</h2>
 
       <div class="login-welcome-back-card">
-        <img src="{{ .Config.Assets }}/static/images/person-icon.svg" alt="icon"/>
+        <img src="{{ .Config.Assets }}/static/images/person-icon.svg" alt="welcome back image"/>
         <div>
           <div class="login-welcome-back-card-name">
             Current session
@@ -57,5 +57,5 @@
     </div>
   </div>
 
-  {{ template "footer" }}
+  {{ template "footer" . }}
 {{ end }}

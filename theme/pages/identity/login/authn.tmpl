@@ -10,6 +10,13 @@
       </div>
     {{ end }}
 
+    {{ if .Data.DisplayBackToMainLogin}}
+      <button id="go-back-button" type="submit" name="action" value="back_to_main_login_page">
+        <i class="material-icons">chevron_left</i>
+        Restart Login
+      </button>
+    {{ end }}
+
     {{ if eq .Data.AuthnView "password_view" }}
       {{ template "authn_password" . }}
     {{ else if eq .Data.AuthnView "otp_send_view" }}
@@ -22,8 +29,6 @@
       {{ template "authn_set_new_password" . }}
     {{ else if eq .Data.AuthnView "web_authn_view" }}
       {{ template "authn_web_authn" . }}
-    {{ else if eq .Data.AuthnView "arculix_view" }}
-      {{ template "authn_arculix" . }}
     {{ else if eq .Data.AuthnView "totp_view" }}
       {{ template "authn_totp" . }}
     {{ end }}
@@ -45,10 +50,6 @@
         <button id="sign-up-button" type="submit" name="action" value="change_to_register">Sign Up</button>
       {{ end }}
     </div>
-
-    {{ if .Data.ArculixDBFPURL }}
-      <script type="text/JavaScript" src="{{ .Data.ArculixDBFPURL }}"></script>
-    {{ end }}
 
   </form>
 

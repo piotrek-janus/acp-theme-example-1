@@ -11,7 +11,7 @@
               <button class="href-card" type="submit" name="action" value="change_to_password" id="login-option-password">
                 <div>
                   <span class="href-card-avatar href-card-avatar-with-img small-icon">
-                    <img src="{{ .Config.Assets }}/static/images/password-icon-2.svg" alt="icon" />
+                    <img src="{{ .Config.Assets }}/static/images/password-icon-2.svg" alt="password method image" />
                   </span>
                   <span>Password</span>
                 </div>
@@ -21,11 +21,11 @@
         {{ end }}
 
         {{ if .Data.AuthenticationMechanismsAvailability.otp }}
-            {{ if ne .Data.AuthnView "otp_send_view" }}
-                <button class="href-card" type="submit" name="action" value="{{ if or .Data.IsForceAuthMode .Data.Is2FAStep }}send_otp{{ else }}change_to_otp{{ end }}" id="login-option-code" style="display: flex">
+            {{ if and (ne .Data.AuthnView "otp_send_view") (ne .Data.AuthnView "otp_verify_view") (ne .Data.AuthnView "otp_use_alternative_view") }}
+                <button class="href-card" type="submit" name="action" value="{{ if or .Data.IsForceAuthMode .Data.Is2FAStep (not (eq .Data.Identifier ""))}}send_otp{{ else }}change_to_otp{{ end }}" id="login-option-code" style="display: flex">
                     <div>
                         <span class="href-card-avatar href-card-avatar-with-img small-icon">
-                            <img src="{{ .Config.Assets }}/static/images/otp-icon.svg" alt="icon" />
+                            <img src="{{ .Config.Assets }}/static/images/otp-icon.svg" alt="verification code method image" />
                         </span>
                         <span>Verification Code</span>
                     </div>
@@ -39,7 +39,7 @@
               <button class="href-card" type="submit" name="action" value="change_to_web_authn" id="login-option-web-authn">
                 <div>
                   <span class="href-card-avatar href-card-avatar-with-img small-icon">
-                    <img src="{{ .Config.Assets }}/static/images/webauthn-icon.svg" alt="icon" />
+                    <img src="{{ .Config.Assets }}/static/images/webauthn-icon.svg" alt="passkey method image" />
                   </span>
                   <span>Passkey</span>
                 </div>
@@ -53,23 +53,9 @@
               <button class="href-card" type="submit" name="action" value="change_to_totp" id="login-option-totp">
                 <div>
                   <span class="href-card-avatar href-card-avatar-with-img small-icon">
-                    <img src="{{ .Config.Assets }}/static/images/smartphone-icon.svg" alt="icon" />
+                    <img src="{{ .Config.Assets }}/static/images/smartphone-icon.svg" alt="authenticator code method image" />
                   </span>
                   <span>Authenticator Code</span>
-                </div>
-                <i class="material-icons">navigate_next</i>
-              </button>
-          {{ end }}
-        {{ end }}
-
-        {{ if .Data.AuthenticationMechanismsAvailability.arculix }}
-          {{if ne .Data.AuthnView "arculix_view" }}
-              <button class="href-card" type="submit" name="action" value="change_to_arculix" id="login-option-arculix">
-                <div>
-                  <span class="href-card-avatar href-card-avatar-with-img small-icon">
-                    <img src="{{ .Config.Assets }}/static/images/arculix-icon.svg" alt="icon" />
-                  </span>
-                  <span>Arculix</span>
                 </div>
                 <i class="material-icons">navigate_next</i>
               </button>

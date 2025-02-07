@@ -14,7 +14,7 @@
   <div id="content-container">
     <div class="card">
       <div id="sign-in">
-        <div class="content">
+        <div class="content" id="main-content">
           <div class="skeleton skeleton-input" style="width: 100%;"></div>
           <div class="skeleton skeleton-input" style="width: 100%;"></div>
           <div class="skeleton skeleton-button" style="width: 100%;"></div>
@@ -23,7 +23,7 @@
     </div>
   </div>
 
-  <script src="{{ .Data.DBFPURL }}" defer></script>
+  <script src="/dbfp/bfp7.js" defer></script>
 
   <script nonce="{{ .Nonce }}">
     const baseURL = `${window.location.protocol}//${window.location.host}`;
@@ -46,6 +46,7 @@
       SecureAuth.getFingerprint({
         enableGps: false,
         jwtEnabled: true,
+        apiEndpoint: "dbfp/data/fingerprint",
         mode: "default",
       });
       document.addEventListener('onBfpDataLoad', (e) => {
@@ -56,5 +57,5 @@
     });
   </script>
 
-  {{ template "footer" }}
+  {{ template "footer" . }}
 {{ end }}

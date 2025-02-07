@@ -11,16 +11,14 @@
   </div>
 
   <div class="card">
-    <div class="content">
-
+    <div class="content" id="main-content">
       {{ if .Data.AuthnView }}
         {{ template "authn" . }}
       {{ else }}
         <div class="alert-danger">No Authentication Mechanisms Enabled</div>
       {{ end }}
-
     </div>
   </div>
 
-  {{ template "footer" }}
+  {{ template "footer" . }}
 {{ end }}

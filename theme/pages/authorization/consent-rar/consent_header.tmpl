@@ -7,7 +7,7 @@
   <div class="consent-header-name-container">
     <div>
       {{ if .Data.Session.ClientInfo.LogoURI }}
-        <img src="{{.Data.Session.ClientInfo.LogoURI}}" width="42px" height="42px"/>
+        <img src="{{.Data.Session.ClientInfo.LogoURI}}" width="42px" height="42px" alt="client logo"/>
       {{ else }}
         <i class="material-icons">apps</i>
       {{ end }}

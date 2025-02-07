@@ -12,13 +12,13 @@
     <div class="log-in-header-container">
         <h2 id="log-in-header">Verify code</h2>
         {{ if .Data.Is2FAStep }}
-            <img src="{{ .Config.Assets }}/static/images/2fa-icon.svg" alt="icon" class="icon-2fa"/>
+            <img src="{{ .Config.Assets }}/static/images/2fa-icon.svg" alt="second factor step" class="icon-2fa"/>
         {{ end }}
     </div>
 
     {{ if .Data.IsForceAuthMode}}
         <div class="login-welcome-back-card">
-            <img src="{{ .Config.Assets }}/static/images/person-icon.svg" alt="icon"/>
+            <img src="{{ .Config.Assets }}/static/images/person-icon.svg" alt="person icon"/>
             <div>
             <div class="login-welcome-back-card-name">
                 {{ .Data.UserDisplayName }}
@@ -56,6 +56,10 @@
           </div>
     {{ else }}
         <button class="submit-button" type="submit" id="verify-button">Continue</button>
+    {{ end }}
+
+    {{ if .Data.AuthnModeSwitch }}
+        {{ template "authn_methods" . }}
     {{ end }}
 
     <input type="hidden" name="authn_mode" value="otp_send_view" id="authnView-input">

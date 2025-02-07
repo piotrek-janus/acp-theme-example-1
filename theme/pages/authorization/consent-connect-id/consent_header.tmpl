@@ -41,7 +41,7 @@
 
 <div style="display: flex; align-items: center; justify-content: center">
     {{ if .Config.Styling.LogoURL }}
-        <img src="{{.Config.Styling.LogoURL}}" width="48px" height="48px" style="margin-right: 16px;"/>
+        <img src="{{.Config.Styling.LogoURL}}" width="48px" height="48px" style="margin-right: 16px;" alt="company logo"/>
     {{ else }}
         <div style="width: 48px; height: 48px; border-radius: 4px; border: 1px solid #cccccc; margin-right: 16px; display: flex;align-items: center; justify-content: center">
             <svg width="49" height="49" viewBox="0 0 49 49" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -65,7 +65,7 @@
         </div>
     </div>
     {{ if .Data.Session.ClientInfo.LogoURI }}
-        <img src="{{.Data.Session.ClientInfo.LogoURI}}" width="48px" height="48px" style="margin-left: 16px;"/>
+        <img src="{{.Data.Session.ClientInfo.LogoURI}}" width="48px" height="48px" style="margin-left: 16px;" alt="client logo"/>
     {{ else }}
         <div style="width: 48px; height: 48px; border-radius: 4px; border: 1px solid #cccccc; margin-left: 16px; display: flex;align-items: center; justify-content: center">
             <i class="material-icons">apps</i>
