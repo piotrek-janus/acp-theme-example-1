@@ -11,7 +11,7 @@
   <div class="card">
     <h3 class="header">Welcome to<br/> Authorization Control Plane</h3>
 
-    <div class="content">
+    <div class="content" id="main-content">
       <p>Find out how to</p>
 
       <a class="href-card" href="https://docs.authorization.cloudentity.com/howto/configure/tenants/" target="_blank" rel="noopener noreferrer">
@@ -21,12 +21,12 @@
         </div>
         <i class="material-icons">navigate_next</i>
       </a>
-      
+
       <div class="caption">
         Need more technical details? Access <a href="https://cloudentity.com/developers/" target="_blank" rel="noopener noreferrer">Documentation</a>
       </div>
     </div>
   </div>
 
-  {{ template "footer" }}
+  {{ template "footer" . }}
 {{ end }}

@@ -11,7 +11,7 @@
   <div class="card">
     <h3 class="header">Log in</h3>
 
-    <div class="content">
+    <div class="content" id="main-content">
       {{ range .Data.FormError.Errors }}
         {{ template "error_message" . }}
       {{ end }}
@@ -33,5 +33,5 @@
     </div>
   </div>
 
-  {{ template "footer" }}
+  {{ template "footer" . }}
 {{ end }}

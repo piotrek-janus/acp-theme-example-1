@@ -17,7 +17,7 @@
     <div class="card" id="scopes">
         {{ template "consent_header" . }}
 
-        <div class="content">
+        <div class="content" id="main-content">
           {{ if .Data.ScopesWithoutService }}
             {{ template "consent_scopes_without_service" . }}
           {{ end }}
@@ -33,7 +33,7 @@
     <div class="card" id="rars" style="display: {{ if or (gt (len .Data.ServicesWithScopes) 0) (gt (len .Data.ScopesWithoutService) 0)}}none{{else}}block{{end}}">
         {{ template "consent_header_rar" . }}
 
-        <div class="content">
+        <div class="content" id="main-content">
           {{ template "consent_rars" . }}
 
           {{ template "consent_footer_rar" . }}

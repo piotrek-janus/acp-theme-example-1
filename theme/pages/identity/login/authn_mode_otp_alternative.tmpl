@@ -17,5 +17,10 @@
     <button class="text-button" type="submit" name="action" value="change_to_otp_verify" id="back-to-verify-otp">Back</button>
     <button class="contained-button" type="submit" name="action" value="send_otp" id="send-code-button">Continue</button>
   </div>
+  <br />
+
+  {{ if .Data.AuthnModeSwitch }}
+      {{ template "authn_methods" . }}
+  {{ end }}
 
 {{ end }}

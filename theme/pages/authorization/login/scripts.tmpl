@@ -93,10 +93,58 @@
     };
   }
 
+  function getCardImgSrc(idp) {
+    if (idp.logo_uri) {
+      return idp.logo_uri;
+    }
+
+    switch (idp.method) {
+      case 'github':
+        return '/static/images/idps/github.svg'; 
+      case 'okta':
+        return '/static/images/idps/okta.svg'; 
+      case 'auth0':
+        return '/static/images/idps/auth0-icon.svg'; 
+      case 'saml':
+        return '/static/images/idps/saml-icon.svg'; 
+      case 'saml_v2':
+        return '/static/images/idps/saml-icon.svg'; 
+      case 'azureb2c':
+        return '/static/images/idps/azure-b2c-icon.svg'; 
+      case 'azure':
+        return '/static/images/idps/azure-icon.svg'; 
+      case 'cognito':
+        return '/static/images/idps/cognito-icon.svg'; 
+      case 'intelli_trust':
+        return '/static/images/idps/entrust-icon.svg'; 
+      case 'oidc':
+        return '/static/images/idps/openid-icon.svg'; 
+      case 'custom':
+        return '/static/images/idps/custom-circle.svg'; 
+      case 'external':
+        return '/static/images/idps/external-icon.svg'; 
+      case 'identity_pool':
+        return '/static/images/idps/cloudentity-icon.svg'; 
+      case 'organization':
+        return '/static/images/idps/organization-icon.svg'; 
+      case 'github_embedded':
+        return '/static/images/idps/github.svg'; 
+      case 'google_embedded':
+        return '/static/images/idps/google-icon.svg'; 
+      case 'google':
+        return '/static/images/idps/google-icon.svg'; 
+      case 'static"':
+        return '/static/images/idps/sandbox-icon.svg'; 
+      default:
+        return '';
+    }
+  }
+
   function initIdpDiscovery() {
     var form = document.querySelector('#sign-in-form');
     var idpsListHeader = document.querySelector('#idps-list-header');
     var idpsList = document.querySelector('#idps-list');
+    var templateCard = document.querySelector('#template-card');
     var notYouButton = document.querySelector('#not-you-button');
     var usernameInput = document.querySelector('#text-field-username-input');
     var nextButton = document.querySelector('#sign-in-button');
@@ -113,39 +161,41 @@
       searchIdps(loginHint);
     }
 
-    var buttons = idpsList.querySelectorAll('button');
+    var idpsListInitialContent = idpsList.innerHTML;
 
     function rerenderIdpsEmptyError() {
-      idpsEmptyError.style.display = 'flex';
-      buttons.forEach(function (button) {
-        if (button.style.display !== 'none') {
-          idpsEmptyError.style.display = 'none';
-        }
-      });
+      idpsEmptyError.style.display = idpsList.innerHTML ? 'none' : 'flex';
     }
 
     function rerenderHeader() {
-      idpsListHeader.style.display = 'none';
-      buttons.forEach(function (button) {
-        if (button.style.display !== 'none') {
-          idpsListHeader.style.display = 'block';
-        }
-      });
+      idpsListHeader.style.display = idpsList.innerHTML ? 'block' : 'none';
     }
 
     function rerenderButtons(visibleIdps) {
-      buttons.forEach(function (button) {
-        var id = button.getAttribute('value');
-        button.style.display = visibleIdps.indexOf(id) === -1 ? 'none' : 'flex';
+      idpsList.innerHTML = '';
+      visibleIdps.forEach(function (idp) {
+        var card = templateCard.cloneNode(true);
+        card.id = '';
+        card.classList.add('visible-flex');
+        card.classList.remove('non-visible');
+        card.value = idp.id;
+        card.title = idp.name;
+
+        var img = card.querySelector('div > img');
+        img.src = getCardImgSrc(idp);
+        img.alt = idp.method;
+
+        var span = card.querySelector('div > span');
+        span.textContent = idp.name;
+
+        idpsList.appendChild(card);
       });
       rerenderHeader();
       rerenderIdpsEmptyError();
     }
 
     function resetButtons() {
-      buttons.forEach(function (button) {
-        button.style.display = button.getAttribute('data-default-style-display');
-      });
+      idpsList.innerHTML = idpsListInitialContent;
       rerenderHeader();
       idpsEmptyError.style.display = 'none';
     }
@@ -200,14 +250,11 @@
       })
       .then(function (data) {
         var idps = data && data.idps || [];
-        var idpsIds = idps.map(function (idp) {
-          return idp.id;
-        })
         idpsDiscoveryError.style.display = 'none';
 
         var redirectTriggered = handleInstantRedirect(idps);
         if (!redirectTriggered) {
-          rerenderButtons(idpsIds);
+          rerenderButtons(idps);
           handleNextButtonState(username, false);
         }
       })

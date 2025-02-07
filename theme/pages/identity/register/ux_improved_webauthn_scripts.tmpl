@@ -52,20 +52,25 @@
           }),
         });
       })
-      .then(() => {
-        const form = document.querySelector("#sign-up-form");
-
-        const actionNode = document.createElement("input");
-        actionNode.name = "action";
-        actionNode.value = "submit";
-        actionNode.hidden = true;
-
-        form.appendChild(actionNode);
-        form.submit();
-      })
       .catch((error) => {
         webauthnError.innerHTML = error;
         webauthnError.hidden = false;
+      })
+      .finally(() => {
+        if (webauthnError.innerHTML.startsWith("NotAllowedError:") || webauthnError.innerHTML.startsWith("AbortError:")) {
+          webauthnError.innerHTML = '';
+          webauthnError.hidden = true;
+        } else if (webauthnError.innerHTML === '') {
+          const form = document.querySelector("#sign-up-form");
+
+          const actionNode = document.createElement("input");
+          actionNode.name = "action";
+          actionNode.value = "submit";
+          actionNode.hidden = true;
+
+          form.appendChild(actionNode);
+          form.submit();
+        }
       });
     }
 
@@ -77,6 +82,7 @@
           registerUser();
         }
       });
+      registerUser();
     }
 
     document.addEventListener("DOMContentLoaded", function () {

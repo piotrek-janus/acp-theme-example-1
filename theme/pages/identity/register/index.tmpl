@@ -10,7 +10,7 @@
   </div>
 
   <div class="card">
-    <div class="content">
+    <div class="content" id="main-content">
       {{ if not .Data.PublicRegistrationAllowed }}
       {{ template "registration_not_allowed" . }}
       {{ else if eq .Data.TargetViewV2 "otp" }}
@@ -27,5 +27,5 @@
     </div>
   </div>
 
-  {{ template "footer" }}
+  {{ template "footer" . }}
 {{ end }}
